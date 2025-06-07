@@ -12,7 +12,8 @@ dependencies = [
     "seaborn>=0.13.2",
     "sqlalchemy>=2.0.41",
     "torch==2.2.2",
-    "numpy<2"
+    "numpy<2",
+    "tqdm>=4.67.1",
 ]
 
 [dependency-groups]

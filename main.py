@@ -6,7 +6,10 @@ from src.utils.db_utils import DatabaseConnection
 from src.utils.utils import time_series_split
 from src.transformers.time_transformer import AirQualityProcessor
 from src.datasets.weather_dataset import WeatherDataset
+from src.model.weather_model import WeatherLSTM, train_model
 from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
+
 
 load_dotenv()
 set_config(transform_output="pandas")
@@ -67,7 +70,7 @@ def main():
     )
 
     train_loader = DataLoader(
-        train_dataset, batch_size=32, shuffle=True, drop_last=True
+        train_dataset, batch_size=32, shuffle=False, drop_last=True
     )
     val_loader = DataLoader(
         val_dataset, batch_size=32, shuffle=False, drop_last=False
@@ -75,10 +78,27 @@ def main():
     test_loader = DataLoader(
         test_dataset, batch_size=32, shuffle=False, drop_last=False
     )
+    # -------- MODEL TRAINING ------------
+    model = WeatherLSTM(input_size=15)
+    _, train_losses, val_losses = train_model(
+        model=model,
+        train_loader=train_loader,
+        val_loader=val_loader,
+        test_loader=test_loader,
+    )
 
-    for batch in train_loader:
-        print(batch["features"])
-        print(batch["target"])
+    epochs = range(1, len(train_losses) + 1)
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(epochs, train_losses, label="Training Loss")
+    plt.plot(epochs, val_losses, label="Validation Loss")
+    plt.xlabel("Epoch")
+    plt.ylabel("MSE Loss")
+    plt.title("Training and Validation Loss over Epochs")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
 
 
 if __name__ == "__main__":
