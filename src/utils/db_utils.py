@@ -1,16 +1,12 @@
-from dotenv import load_dotenv
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
-
-load_dotenv()
 
 
 class DatabaseConnection:
     def __init__(self, conn_str: str | None = None):
         if isinstance(conn_str, type(None)):
             self.conn_str = os.getenv("DATABASE_URL")
-            print(self.conn_str)
         else:
             self.conn_str = conn_str
 
