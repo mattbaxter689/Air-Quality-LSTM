@@ -7,6 +7,7 @@ from src.utils.utils import time_series_split
 from src.transformers.time_transformer import AirQualityProcessor
 from src.datasets.weather_dataset import WeatherDataset
 from src.model.weather_model import WeatherLSTM, train_model
+from src.model.early_stopper import EarlyStopping
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 
@@ -54,9 +55,9 @@ def main():
     num_cols = [col for col in train.columns if col != time_col]
 
     processor = AirQualityProcessor(num_cols=num_cols, time_col=time_col)
-    train_transformed = processor.fit_transform(train)
 
-    # Transform val and test using the *fitted* pipeline
+    # Apply the pipeline. Fit and transform train, trainsform others
+    train_transformed = processor.fit_transform(train)
     val_transformed = processor.transform(val)
     test_transformed = processor.transform(test)
 
@@ -80,8 +81,10 @@ def main():
     )
     # -------- MODEL TRAINING ------------
     model = WeatherLSTM(input_size=15)
+    early_stopper = EarlyStopping(patience=2, min_delta=1e-4)
     _, train_losses, val_losses = train_model(
         model=model,
+        early_stopper=early_stopper,
         train_loader=train_loader,
         val_loader=val_loader,
         test_loader=test_loader,

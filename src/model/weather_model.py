@@ -4,6 +4,7 @@ from tqdm import tqdm
 from torch.utils.data import DataLoader
 from sklearn.metrics import root_mean_squared_error, mean_absolute_error
 import numpy as np
+from src.model.early_stopper import EarlyStopping
 
 
 class WeatherLSTM(nn.Module):
@@ -23,8 +24,10 @@ class WeatherLSTM(nn.Module):
             hidden_size=hidden_size,
             num_layers=num_layers,
             batch_first=True,
-            dropout=dropout,
+            dropout=dropout if num_layers > 1 else 0.0,
         )
+
+        self.dropout = nn.Dropout(dropout)
 
         # return 1 output as final
         self.fc = nn.Linear(hidden_size, 1)
@@ -33,12 +36,14 @@ class WeatherLSTM(nn.Module):
 
         lstm_out, _ = self.lstm(x)
         last_hidden = lstm_out[:, -1, :]
-        out = self.fc(last_hidden)
+        out = self.dropout(last_hidden)
+        out = self.fc(out)
         return out.squeeze(1)
 
 
 def train_model(
     model: WeatherLSTM,
+    early_stopper: EarlyStopping,
     train_loader: DataLoader,
     val_loader: DataLoader,
     test_loader: DataLoader,
@@ -46,8 +51,8 @@ def train_model(
     lr: float = 1e-3,
 ) -> tuple[WeatherLSTM, list[float], list[float]]:
     model = model.to("cpu")
-    criterion = nn.MSELoss()
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    criterion = nn.SmoothL1Loss()
+    optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-5)
 
     train_epoch_losses = []
     val_epoch_losses = []
@@ -86,6 +91,13 @@ def train_model(
                 val_losses.append(val_loss.item())
 
         avg_val_loss = sum(val_losses) / len(val_losses)
+        if early_stopper(avg_val_loss):
+            print(f"Early stopping triggered at epoch: {epoch+1}")
+            print(
+                f"Epoch {epoch+1}: Train Loss = {avg_train_loss:.4f} | Val Loss = {avg_val_loss:.4f}"
+            )
+            break
+
         val_epoch_losses.append(avg_val_loss)
 
         print(
