@@ -1,1 +1,3 @@
-I know I want robust scaler, and since there is not really missing data, we can throw the Simple imputer in this as well
+# Torch Weather
+
+This sub-module contains the code necessary to extract, transform, train, tune, and fit an LSTM model using pytorch to predict air quality. 

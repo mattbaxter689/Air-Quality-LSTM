@@ -14,6 +14,7 @@ dependencies = [
     "torch==2.2.2",
     "numpy<2",
     "tqdm>=4.67.1",
+    "optuna>=4.3.0",
 ]
 
 [dependency-groups]
