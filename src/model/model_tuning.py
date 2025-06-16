@@ -194,3 +194,31 @@ class AirQualityTuner:
         )
 
         return model
+
+    def predict_with_timestamps(
+        self,
+        model: WeatherLSTM,
+        test_df: pd.DataFrame,
+        time_index: pd.Index,
+        window_size: int,
+    ) -> pd.Series:
+        model.eval()
+        preds = []
+
+        with torch.no_grad():
+            # Convert entire test_df to numpy for windowing
+            data_np = test_df.values.astype(np.float32)
+
+            for i in range(len(data_np) - window_size):
+                X = data_np[i : i + window_size]
+                X_tensor = torch.tensor(X).unsqueeze(0)  # Add batch dim
+                output = model(X_tensor).squeeze().cpu().numpy()
+                preds.append(output)
+
+        # Construct timestamps starting from window_size offset
+        pred_index = time_index[window_size : window_size + len(preds)]
+
+        # Convert predictions back from log scale
+        preds_exp = np.expm1(preds)
+
+        return pd.Series(data=preds_exp, index=pred_index)

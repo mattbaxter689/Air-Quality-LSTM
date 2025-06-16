@@ -135,6 +135,30 @@ def main():
         num_epochs=20,
     )
 
+    predictions_series = trainer.predict_with_timestamps(
+        final_model, test_transformed, test_transformed.index, window_size=12
+    )
+    window_size = 12
+
+    # Align true values with prediction time frame
+    y_true_aligned = np.expm1(test_target.values[window_size:])
+    time_index_aligned = test_target.index[window_size:]
+
+    plt.figure(figsize=(15, 5))
+    plt.plot(time_index_aligned, y_true_aligned, label="True AQI")
+    plt.plot(
+        predictions_series.index,
+        predictions_series.values,
+        linestyle="--",
+        label="Predicted AQI",
+    )
+    plt.xlabel("Time")
+    plt.ylabel("Air Quality Index (AQI)")
+    plt.title("Predictions vs True Values on Test Set")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
 
 if __name__ == "__main__":
     main()
