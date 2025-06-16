@@ -124,7 +124,7 @@ def main():
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    plt.savefig("figures/loss_curves.png")
 
     final_model = trainer.train_on_best(
         train_transformed,
@@ -157,7 +157,7 @@ def main():
     plt.title("Predictions vs True Values on Test Set")
     plt.legend()
     plt.grid(True)
-    plt.show()
+    plt.savefig("figures/actual_predictions_overlay.png")
 
 
 if __name__ == "__main__":
