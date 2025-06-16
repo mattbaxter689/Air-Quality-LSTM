@@ -1,4 +1,5 @@
 import pandas as pd
+import optuna
 from dotenv import load_dotenv
 import numpy as np
 from sklearn import set_config
@@ -6,10 +7,11 @@ from src.utils.db_utils import DatabaseConnection
 from src.utils.utils import time_series_split
 from src.transformers.time_transformer import AirQualityProcessor
 from src.datasets.weather_dataset import WeatherDataset
-from src.model.weather_model import WeatherLSTM, train_model
+from src.model.weather_model import WeatherLSTM
 from src.model.early_stopper import EarlyStopping
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
+from src.model.model_tuning import AirQualityTuner
 
 
 load_dotenv()
@@ -80,16 +82,37 @@ def main():
         test_dataset, batch_size=32, shuffle=False, drop_last=False
     )
     # -------- MODEL TRAINING ------------
-    model = WeatherLSTM(input_size=15)
-    early_stopper = EarlyStopping(patience=2, min_delta=1e-4)
-    _, train_losses, val_losses = train_model(
-        model=model,
-        early_stopper=early_stopper,
+    trainer = AirQualityTuner(
         train_loader=train_loader,
         val_loader=val_loader,
         test_loader=test_loader,
+        input_size=15,
+    )
+    study = optuna.create_study(direction="minimize")
+    study.optimize(trainer.objective, n_trials=10)
+
+    print("Best trial:")
+    print(f"Value: {study.best_trial.value}")
+    print(f"Params: {study.best_params}")
+
+    # Optionally, retrain best model on all data or test best params
+    best_params = study.best_params
+    best_model = WeatherLSTM(
+        input_size=15,
+        hidden_size=best_params["hidden_size"],
+        num_layers=best_params["num_layers"],
+        dropout=best_params["dropout"],
     )
 
+    early_stopper = EarlyStopping(patience=5)
+    best_model, train_losses, val_losses = trainer.train_model(
+        best_model,
+        lr=best_params["lr"],
+        num_epochs=20,
+        early_stopper=early_stopper,
+    )
+
+    trainer.test_model(best_model)
     epochs = range(1, len(train_losses) + 1)
 
     plt.figure(figsize=(10, 6))
@@ -102,6 +125,15 @@ def main():
     plt.grid(True)
     plt.tight_layout()
     plt.show()
+
+    final_model = trainer.train_on_best(
+        train_transformed,
+        val_transformed,
+        train_target,
+        val_target,
+        best_params,
+        num_epochs=20,
+    )
 
 
 if __name__ == "__main__":
