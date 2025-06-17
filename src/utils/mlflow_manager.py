@@ -8,6 +8,9 @@ from typing import Self
 from src.model.weather_model import WeatherLSTM
 from src.transformers.time_transformer import AirQualityProcessor
 import joblib
+import logging
+
+logger = logging.getLogger("torch_weather")
 
 
 class MLFlowLogger:
@@ -26,7 +29,7 @@ class MLFlowLogger:
             mlflow.set_tracking_uri(self.tracking_uri)
         mlflow.set_experiment(self.experiment_name)
         self.active_run = mlflow.start_run()
-        print("Started MLflow run:", self.active_run.info.run_id)
+        logger.info(f"Started MLflow run: {self.active_run.info.run_id}")
 
         return self
 
@@ -39,10 +42,7 @@ class MLFlowLogger:
         self, trial_number: int, params: dict, train_loss: list, val_loss: list
     ) -> None:
         with mlflow.start_run(nested=True, run_name=f"trial_{trial_number}"):
-            print(
-                "Inside trial run. Parent run:",
-                mlflow.active_run().info.run_id,
-            )
+            logger.info("Logging results from nested run")
             mlflow.log_params(params)
             for i, (t, v) in enumerate(zip(train_loss, val_loss)):
                 mlflow.log_metric("train_loss", t, step=i)
@@ -60,7 +60,7 @@ class MLFlowLogger:
         test_mae: float,
         processor: AirQualityProcessor | None,
     ) -> None:
-        print("Logging final model fit and parameters")
+        logger.info("Logging final model fit and parameters")
         mlflow.set_experiment(self.final_run_name)
         with mlflow.start_run(
             run_name="final_model_" + str(uuid.uuid4())[:8], nested=True

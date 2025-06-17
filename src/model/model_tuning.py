@@ -14,6 +14,9 @@ from pandas import DataFrame, Series
 import pandas as pd
 from src.utils.mlflow_manager import MLFlowLogger
 from typing import Callable
+import logging
+
+logger = logging.getLogger("torch_weather")
 
 
 class AirQualityFitHelper:
@@ -89,20 +92,25 @@ class AirQualityFitHelper:
                 if trial is not None:
                     trial.report(avg_val_loss, epoch)
                     if trial.should_prune():
+                        logger.info("Optuna pruning trial")
                         raise optuna.exceptions.TrialPruned()
 
                 if early_stopper(avg_val_loss):
-                    print(f"Early stopping triggered at epoch: {epoch+1}")
-                    print(
+                    logger.info(
+                        f"Early stopping triggered at epoch: {epoch+1}"
+                    )
+                    logger.info(
                         f"Epoch {epoch+1}: Train Loss = {avg_train_loss:.4f} | Val Loss = {avg_val_loss:.4f}"
                     )
                     break
 
-                print(
+                logger.info(
                     f"Epoch {epoch+1}: Train Loss = {avg_train_loss:.4f} | Val Loss = {avg_val_loss:.4f}"
                 )
             else:
-                print(f"Epoch {epoch+1}: Train Loss = {avg_train_loss:.4f}")
+                logger.info(
+                    f"Epoch {epoch+1}: Train Loss = {avg_train_loss:.4f}"
+                )
         return model, train_epoch_losses, val_epoch_losses
 
     def test_model(self, model: WeatherLSTM) -> tuple[float, float]:
@@ -125,8 +133,8 @@ class AirQualityFitHelper:
         rmse = root_mean_squared_error(y_true_real, y_pred_real)
         mae = mean_absolute_error(y_true_real, y_pred_real)
 
-        print(f"\nTest RMSE (original scale): {rmse:.4f}")
-        print(f"Test MAE  (original scale): {mae:.4f}")
+        logger.info(f"Test RMSE (original scale): {rmse:.4f}")
+        logger.info(f"Test MAE  (original scale): {mae:.4f}")
 
         return rmse, mae
 
