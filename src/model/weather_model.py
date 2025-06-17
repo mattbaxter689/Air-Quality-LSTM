@@ -8,6 +8,13 @@ from src.model.early_stopper import EarlyStopping
 
 
 class WeatherLSTM(nn.Module):
+    """
+    Pytorch LSTM model to predict air quality for my region
+
+    Args:
+        nn (nn.Module): The required inheritance to create custom pytorch models
+    """
+
     def __init__(
         self,
         input_size: int,
@@ -15,6 +22,15 @@ class WeatherLSTM(nn.Module):
         num_layers: int = 1,
         dropout: float = 0.2,
     ):
+        """
+        Initialize custom pytorch LSTM model
+
+        Args:
+            input_size (int): The size of input data to use in the model
+            hidden_size (int, optional): Hidden neurons to be used in model. Defaults to 32.
+            num_layers (int, optional): Number of hidden layers for LSTM model. Defaults to 1.
+            dropout (float, optional): Dropout for LSTM model. Defaults to 0.2.
+        """
         super(WeatherLSTM, self).__init__()
         self.hidden_size = hidden_size
         self.num_layers = num_layers

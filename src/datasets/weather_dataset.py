@@ -5,9 +5,24 @@ from torch.utils.data import Dataset
 
 
 class WeatherDataset(Dataset):
+    """
+    Custom weather dataset for air quality data
+
+    Args:
+        Dataset (torch.utils.Dataset): Pytorch Dataset class
+    """
+
     def __init__(
         self, weather: pd.DataFrame, target: pd.Series, window_size: int = 12
     ):
+        """
+        Initializes instance of custom weather dataset to be used by pytorch
+
+        Args:
+            weather (pd.DataFrame): Dataframe containing transformed weather data to use. Sorted by time
+            target (pd.Series): Target containing air quality data. Sorted by time
+            window_size (int, optional): The lookback window to use for the model. Defaults to 12 time points back.
+        """
         super().__init__()
         self.window_size = window_size
         self.target = target.values.astype(np.float32)

@@ -59,6 +59,7 @@ class AirQualityProcessor(BaseEstimator, TransformerMixin):
         super().__init__()
         self.num_cols = num_cols
         self.time_col = time_col
+        self._pipeline = None
         self._create_pipeline()
 
     def _create_pipeline(self) -> Pipeline:
@@ -83,9 +84,13 @@ class AirQualityProcessor(BaseEstimator, TransformerMixin):
             verbose_feature_names_out=False,
         )
 
-        self.pipeline = Pipeline([("preprocess", self.preprocesser)])
+        self._pipeline = Pipeline([("preprocess", self.preprocesser)])
 
-        return self.pipeline
+        return self._pipeline
+
+    @property
+    def pipeline(self) -> Pipeline:
+        return self._pipeline
 
     def fit(self, X, y=None) -> Self:
         self.pipeline.fit(X, y)
