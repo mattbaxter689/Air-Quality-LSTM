@@ -7,11 +7,10 @@ from src.utils.db_utils import DatabaseConnection
 from src.utils.utils import time_series_split
 from src.transformers.time_transformer import AirQualityProcessor
 from src.datasets.weather_dataset import WeatherDataset
-from src.model.weather_model import WeatherLSTM
-from src.model.early_stopper import EarlyStopping
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
-from src.model.model_tuning import AirQualityTuner
+from src.model.model_tuning import AirQualityFitHelper, create_objective
+from src.utils.mlflow_manager import MLFlowLogger
 
 
 load_dotenv()
@@ -65,75 +64,61 @@ def main():
 
     # -------- PYTORCH DATASETS ------------
     train_dataset = WeatherDataset(
-        train_transformed, train_target, window_size=12
+        weather=train_transformed, target=train_target, window_size=12
     )
-    val_dataset = WeatherDataset(val_transformed, val_target, window_size=12)
+    val_dataset = WeatherDataset(
+        weather=val_transformed, target=val_target, window_size=12
+    )
     test_dataset = WeatherDataset(
-        test_transformed, test_target, window_size=12
+        weather=test_transformed, target=test_target, window_size=12
     )
 
     train_loader = DataLoader(
-        train_dataset, batch_size=32, shuffle=False, drop_last=True
+        dataset=train_dataset, batch_size=32, shuffle=False, drop_last=True
     )
     val_loader = DataLoader(
-        val_dataset, batch_size=32, shuffle=False, drop_last=False
+        dataset=val_dataset, batch_size=32, shuffle=False, drop_last=False
     )
     test_loader = DataLoader(
-        test_dataset, batch_size=32, shuffle=False, drop_last=False
+        dataset=test_dataset, batch_size=32, shuffle=False, drop_last=False
     )
     # -------- MODEL TRAINING ------------
-    trainer = AirQualityTuner(
+    trainer = AirQualityFitHelper(
         train_loader=train_loader,
         val_loader=val_loader,
         test_loader=test_loader,
         input_size=15,
     )
-    study = optuna.create_study(direction="minimize")
-    study.optimize(trainer.objective, n_trials=10)
 
-    print("Best trial:")
-    print(f"Value: {study.best_trial.value}")
-    print(f"Params: {study.best_params}")
+    with MLFlowLogger() as logger:
+        objective_func = create_objective(fit_helper=trainer, logger=logger)
+        study = optuna.create_study(direction="minimize")
+        study.optimize(objective_func, n_trials=10)
 
-    # Optionally, retrain best model on all data or test best params
-    best_params = study.best_params
-    best_model = WeatherLSTM(
-        input_size=15,
-        hidden_size=best_params["hidden_size"],
-        num_layers=best_params["num_layers"],
-        dropout=best_params["dropout"],
-    )
+        print("Best trial:")
+        print(f"Value: {study.best_trial.value}")
+        print(f"Params: {study.best_params}")
 
-    early_stopper = EarlyStopping(patience=5)
-    best_model, train_losses, val_losses = trainer.train_model(
-        best_model,
-        lr=best_params["lr"],
-        num_epochs=20,
-        early_stopper=early_stopper,
-    )
+        # Optionally, retrain best model on all data or test best params
+        best_params = study.best_params
 
-    trainer.test_model(best_model)
-    epochs = range(1, len(train_losses) + 1)
-
-    plt.figure(figsize=(10, 6))
-    plt.plot(epochs, train_losses, label="Training Loss")
-    plt.plot(epochs, val_losses, label="Validation Loss")
-    plt.xlabel("Epoch")
-    plt.ylabel("MSE Loss")
-    plt.title("Training and Validation Loss over Epochs")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig("figures/loss_curves.png")
-
-    final_model = trainer.train_on_best(
-        train_transformed,
-        val_transformed,
-        train_target,
-        val_target,
-        best_params,
-        num_epochs=20,
-    )
+        final_model, train_loss = trainer.train_on_best(
+            train_data=train_transformed,
+            val_data=val_transformed,
+            train_target=train_target,
+            val_target=val_target,
+            best_params=best_params,
+            num_epochs=20,
+        )
+        rmse, mae = trainer.test_model(model=final_model)
+        logger.log_final_model(
+            model=final_model,
+            params=best_params,
+            train_loss=train_loss,
+            test_rmse=rmse,
+            test_mae=mae,
+            processor=processor,
+        )
 
     predictions_series = trainer.predict_with_timestamps(
         final_model, test_transformed, test_transformed.index, window_size=12
