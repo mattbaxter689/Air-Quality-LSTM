@@ -93,7 +93,9 @@ def main():
     )
 
     with MLFlowLogger() as ml_logger:
-        objective_func = create_objective(fit_helper=trainer, logger=ml_logger)
+        objective_func = create_objective(
+            fit_helper=trainer, ml_logger=ml_logger
+        )
         study = optuna.create_study(direction="minimize")
         study.optimize(objective_func, n_trials=10)
 

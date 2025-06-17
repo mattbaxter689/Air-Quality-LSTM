@@ -215,9 +215,9 @@ class AirQualityFitHelper:
 
 
 def create_objective(
-    fit_helper: AirQualityFitHelper, logger: MLFlowLogger
+    fit_helper: AirQualityFitHelper, ml_logger: MLFlowLogger
 ) -> Callable[[Trial], float]:
-    def objective(trial) -> float:
+    def objective(trial: Trial) -> float:
         hidden_size = trial.suggest_int("hidden_size", 16, 64)
         num_layers = trial.suggest_int("num_layers", 1, 3)
         dropout = trial.suggest_float("dropout", 0.0, 0.5)
@@ -249,7 +249,7 @@ def create_objective(
         except optuna.TrialPruned:
             raise
 
-        logger.log_trial(
+        ml_logger.log_trial(
             trial_number=trial.number,
             params=params,
             train_loss=train_losses,
