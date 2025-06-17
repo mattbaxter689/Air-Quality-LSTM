@@ -11,10 +11,12 @@ from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 from src.model.model_tuning import AirQualityFitHelper, create_objective
 from src.utils.mlflow_manager import MLFlowLogger
-
+from src.utils.init_logger import create_logger
+import logging
 
 load_dotenv()
 set_config(transform_output="pandas")
+logger = create_logger(name="torch_weather")
 
 
 def main():
@@ -90,14 +92,14 @@ def main():
         input_size=15,
     )
 
-    with MLFlowLogger() as logger:
-        objective_func = create_objective(fit_helper=trainer, logger=logger)
+    with MLFlowLogger() as ml_logger:
+        objective_func = create_objective(fit_helper=trainer, logger=ml_logger)
         study = optuna.create_study(direction="minimize")
         study.optimize(objective_func, n_trials=10)
 
-        print("Best trial:")
-        print(f"Value: {study.best_trial.value}")
-        print(f"Params: {study.best_params}")
+        logger.info("Best trial:")
+        logger.info(f"Value: {study.best_trial.value}")
+        logger.info(f"Params: {study.best_params}")
 
         # Optionally, retrain best model on all data or test best params
         best_params = study.best_params
@@ -111,7 +113,7 @@ def main():
             num_epochs=20,
         )
         rmse, mae = trainer.test_model(model=final_model)
-        logger.log_final_model(
+        ml_logger.log_final_model(
             model=final_model,
             params=best_params,
             train_loss=train_loss,

@@ -1,0 +1,364 @@
+2025-06-17 16:36:03,852 - torch_weather - INFO - Started MLflow run: 0927027aabb0407d8d634b51ad7ff8ee
+2025-06-17 16:36:09,701 - torch_weather - INFO - Epoch 1: Train Loss = 2.7981 | Val Loss = 2.1015
+2025-06-17 16:36:13,377 - torch_weather - INFO - Epoch 2: Train Loss = 0.4447 | Val Loss = 0.0534
+2025-06-17 16:36:15,918 - torch_weather - INFO - Epoch 3: Train Loss = 0.1362 | Val Loss = 0.0494
+2025-06-17 16:36:18,512 - torch_weather - INFO - Epoch 4: Train Loss = 0.1264 | Val Loss = 0.0424
+2025-06-17 16:36:21,000 - torch_weather - INFO - Epoch 5: Train Loss = 0.1179 | Val Loss = 0.0343
+2025-06-17 16:36:23,411 - torch_weather - INFO - Epoch 6: Train Loss = 0.1114 | Val Loss = 0.0267
+2025-06-17 16:36:26,003 - torch_weather - INFO - Epoch 7: Train Loss = 0.1044 | Val Loss = 0.0239
+2025-06-17 16:36:28,538 - torch_weather - INFO - Epoch 8: Train Loss = 0.1004 | Val Loss = 0.0206
+2025-06-17 16:36:32,587 - torch_weather - INFO - Epoch 9: Train Loss = 0.0977 | Val Loss = 0.0195
+2025-06-17 16:36:35,821 - torch_weather - INFO - Epoch 10: Train Loss = 0.0929 | Val Loss = 0.0181
+2025-06-17 16:36:38,338 - torch_weather - INFO - Epoch 11: Train Loss = 0.0919 | Val Loss = 0.0157
+2025-06-17 16:36:43,695 - torch_weather - INFO - Epoch 12: Train Loss = 0.0890 | Val Loss = 0.0133
+2025-06-17 16:36:46,564 - torch_weather - INFO - Epoch 13: Train Loss = 0.0865 | Val Loss = 0.0120
+2025-06-17 16:36:49,214 - torch_weather - INFO - Epoch 14: Train Loss = 0.0846 | Val Loss = 0.0123
+2025-06-17 16:36:52,070 - torch_weather - INFO - Epoch 15: Train Loss = 0.0844 | Val Loss = 0.0116
+2025-06-17 16:36:54,869 - torch_weather - INFO - Epoch 16: Train Loss = 0.0837 | Val Loss = 0.0121
+2025-06-17 16:36:57,508 - torch_weather - INFO - Epoch 17: Train Loss = 0.0824 | Val Loss = 0.0102
+2025-06-17 16:37:00,258 - torch_weather - INFO - Epoch 18: Train Loss = 0.0806 | Val Loss = 0.0098
+2025-06-17 16:37:03,613 - torch_weather - INFO - Epoch 19: Train Loss = 0.0808 | Val Loss = 0.0097
+2025-06-17 16:37:06,443 - torch_weather - INFO - Epoch 20: Train Loss = 0.0797 | Val Loss = 0.0101
+2025-06-17 16:37:07,546 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:37:15,261 - torch_weather - INFO - Epoch 1: Train Loss = 0.4141 | Val Loss = 0.0481
+2025-06-17 16:37:16,731 - torch_weather - INFO - Epoch 2: Train Loss = 0.1925 | Val Loss = 0.0245
+2025-06-17 16:37:18,304 - torch_weather - INFO - Epoch 3: Train Loss = 0.1494 | Val Loss = 0.0228
+2025-06-17 16:37:19,823 - torch_weather - INFO - Epoch 4: Train Loss = 0.1177 | Val Loss = 0.0222
+2025-06-17 16:37:21,348 - torch_weather - INFO - Epoch 5: Train Loss = 0.0869 | Val Loss = 0.0183
+2025-06-17 16:37:23,937 - torch_weather - INFO - Epoch 6: Train Loss = 0.0636 | Val Loss = 0.0190
+2025-06-17 16:37:25,853 - torch_weather - INFO - Epoch 7: Train Loss = 0.0496 | Val Loss = 0.0192
+2025-06-17 16:37:28,160 - torch_weather - INFO - Epoch 8: Train Loss = 0.0369 | Val Loss = 0.0177
+2025-06-17 16:37:30,748 - torch_weather - INFO - Epoch 9: Train Loss = 0.0278 | Val Loss = 0.0136
+2025-06-17 16:37:33,032 - torch_weather - INFO - Epoch 10: Train Loss = 0.0213 | Val Loss = 0.0109
+2025-06-17 16:37:34,816 - torch_weather - INFO - Epoch 11: Train Loss = 0.0160 | Val Loss = 0.0094
+2025-06-17 16:37:36,260 - torch_weather - INFO - Epoch 12: Train Loss = 0.0134 | Val Loss = 0.0080
+2025-06-17 16:37:38,092 - torch_weather - INFO - Epoch 13: Train Loss = 0.0118 | Val Loss = 0.0078
+2025-06-17 16:37:39,699 - torch_weather - INFO - Epoch 14: Train Loss = 0.0108 | Val Loss = 0.0078
+2025-06-17 16:37:40,991 - torch_weather - INFO - Epoch 15: Train Loss = 0.0098 | Val Loss = 0.0081
+2025-06-17 16:37:42,405 - torch_weather - INFO - Epoch 16: Train Loss = 0.0092 | Val Loss = 0.0078
+2025-06-17 16:37:44,342 - torch_weather - INFO - Epoch 17: Train Loss = 0.0089 | Val Loss = 0.0075
+2025-06-17 16:37:46,014 - torch_weather - INFO - Epoch 18: Train Loss = 0.0087 | Val Loss = 0.0077
+2025-06-17 16:37:47,458 - torch_weather - INFO - Epoch 19: Train Loss = 0.0082 | Val Loss = 0.0070
+2025-06-17 16:37:48,907 - torch_weather - INFO - Epoch 20: Train Loss = 0.0081 | Val Loss = 0.0076
+2025-06-17 16:37:48,944 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:37:53,933 - torch_weather - INFO - Epoch 1: Train Loss = 0.7047 | Val Loss = 0.0193
+2025-06-17 16:37:56,381 - torch_weather - INFO - Epoch 2: Train Loss = 0.0737 | Val Loss = 0.0152
+2025-06-17 16:38:00,201 - torch_weather - INFO - Epoch 3: Train Loss = 0.0649 | Val Loss = 0.0122
+2025-06-17 16:38:03,117 - torch_weather - INFO - Epoch 4: Train Loss = 0.0612 | Val Loss = 0.0121
+2025-06-17 16:38:05,467 - torch_weather - INFO - Epoch 5: Train Loss = 0.0574 | Val Loss = 0.0109
+2025-06-17 16:38:07,739 - torch_weather - INFO - Epoch 6: Train Loss = 0.0540 | Val Loss = 0.0104
+2025-06-17 16:38:10,300 - torch_weather - INFO - Epoch 7: Train Loss = 0.0527 | Val Loss = 0.0144
+2025-06-17 16:38:14,373 - torch_weather - INFO - Epoch 8: Train Loss = 0.0521 | Val Loss = 0.0104
+2025-06-17 16:38:17,735 - torch_weather - INFO - Early stopping triggered at epoch: 9
+2025-06-17 16:38:17,735 - torch_weather - INFO - Epoch 9: Train Loss = 0.0511 | Val Loss = 0.0138
+2025-06-17 16:38:17,767 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:38:23,923 - torch_weather - INFO - Epoch 1: Train Loss = 0.3352 | Val Loss = 0.0167
+2025-06-17 16:38:29,321 - torch_weather - INFO - Epoch 2: Train Loss = 0.1267 | Val Loss = 0.0107
+2025-06-17 16:38:33,152 - torch_weather - INFO - Epoch 3: Train Loss = 0.1169 | Val Loss = 0.0097
+2025-06-17 16:38:37,088 - torch_weather - INFO - Epoch 4: Train Loss = 0.1114 | Val Loss = 0.0135
+2025-06-17 16:38:41,031 - torch_weather - INFO - Epoch 5: Train Loss = 0.1037 | Val Loss = 0.0146
+2025-06-17 16:38:45,332 - torch_weather - INFO - Epoch 6: Train Loss = 0.0973 | Val Loss = 0.0073
+2025-06-17 16:38:50,496 - torch_weather - INFO - Epoch 7: Train Loss = 0.0908 | Val Loss = 0.0066
+2025-06-17 16:38:54,683 - torch_weather - INFO - Epoch 8: Train Loss = 0.0849 | Val Loss = 0.0082
+2025-06-17 16:38:59,341 - torch_weather - INFO - Epoch 9: Train Loss = 0.0779 | Val Loss = 0.0067
+2025-06-17 16:39:04,498 - torch_weather - INFO - Early stopping triggered at epoch: 10
+2025-06-17 16:39:04,498 - torch_weather - INFO - Epoch 10: Train Loss = 0.0732 | Val Loss = 0.0074
+2025-06-17 16:39:04,538 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:39:10,982 - torch_weather - INFO - Epoch 1: Train Loss = 0.1115 | Val Loss = 0.0691
+2025-06-17 16:39:15,491 - torch_weather - INFO - Epoch 2: Train Loss = 0.0748 | Val Loss = 0.0391
+2025-06-17 16:39:18,279 - torch_weather - INFO - Epoch 3: Train Loss = 0.0613 | Val Loss = 0.0583
+2025-06-17 16:39:21,109 - torch_weather - INFO - Epoch 4: Train Loss = 0.0593 | Val Loss = 0.0555
+2025-06-17 16:39:23,876 - torch_weather - INFO - Early stopping triggered at epoch: 5
+2025-06-17 16:39:23,876 - torch_weather - INFO - Epoch 5: Train Loss = 0.0515 | Val Loss = 0.0420
+2025-06-17 16:39:23,915 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:39:26,654 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:39:28,009 - torch_weather - INFO - Epoch 1: Train Loss = 0.4929 | Val Loss = 0.0321
+2025-06-17 16:39:29,402 - torch_weather - INFO - Epoch 2: Train Loss = 0.1614 | Val Loss = 0.0217
+2025-06-17 16:39:30,784 - torch_weather - INFO - Epoch 3: Train Loss = 0.1486 | Val Loss = 0.0202
+2025-06-17 16:39:32,140 - torch_weather - INFO - Epoch 4: Train Loss = 0.1402 | Val Loss = 0.0186
+2025-06-17 16:39:33,521 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:39:34,962 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:39:37,153 - torch_weather - INFO - Epoch 1: Train Loss = 0.1713 | Val Loss = 0.0455
+2025-06-17 16:39:39,586 - torch_weather - INFO - Epoch 2: Train Loss = 0.0887 | Val Loss = 0.0195
+2025-06-17 16:39:41,830 - torch_weather - INFO - Epoch 3: Train Loss = 0.0731 | Val Loss = 0.0343
+2025-06-17 16:39:44,030 - torch_weather - INFO - Epoch 4: Train Loss = 0.0604 | Val Loss = 0.0245
+2025-06-17 16:39:46,232 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:39:48,349 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:42:37,184 - torch_weather - INFO - Started MLflow run: 1b1dfa2469594cc4bf201c5e3a427077
+2025-06-17 16:42:42,743 - torch_weather - INFO - Epoch 1: Train Loss = 3.0405 | Val Loss = 2.9517
+2025-06-17 16:42:44,543 - torch_weather - INFO - Epoch 2: Train Loss = 2.8897 | Val Loss = 2.7858
+2025-06-17 16:42:47,392 - torch_weather - INFO - Epoch 3: Train Loss = 2.5702 | Val Loss = 2.2722
+2025-06-17 16:42:49,851 - torch_weather - INFO - Epoch 4: Train Loss = 1.1799 | Val Loss = 0.2156
+2025-06-17 16:42:52,006 - torch_weather - INFO - Epoch 5: Train Loss = 0.1078 | Val Loss = 0.0560
+2025-06-17 16:42:53,977 - torch_weather - INFO - Epoch 6: Train Loss = 0.0799 | Val Loss = 0.0516
+2025-06-17 16:42:55,905 - torch_weather - INFO - Epoch 7: Train Loss = 0.0732 | Val Loss = 0.0506
+2025-06-17 16:42:58,409 - torch_weather - INFO - Epoch 8: Train Loss = 0.0690 | Val Loss = 0.0500
+2025-06-17 16:43:00,307 - torch_weather - INFO - Epoch 9: Train Loss = 0.0644 | Val Loss = 0.0492
+2025-06-17 16:43:01,906 - torch_weather - INFO - Epoch 10: Train Loss = 0.0613 | Val Loss = 0.0485
+2025-06-17 16:43:03,631 - torch_weather - INFO - Epoch 11: Train Loss = 0.0579 | Val Loss = 0.0462
+2025-06-17 16:43:05,239 - torch_weather - INFO - Epoch 12: Train Loss = 0.0572 | Val Loss = 0.0451
+2025-06-17 16:43:07,305 - torch_weather - INFO - Epoch 13: Train Loss = 0.0548 | Val Loss = 0.0425
+2025-06-17 16:43:09,091 - torch_weather - INFO - Epoch 14: Train Loss = 0.0524 | Val Loss = 0.0419
+2025-06-17 16:43:10,730 - torch_weather - INFO - Epoch 15: Train Loss = 0.0503 | Val Loss = 0.0393
+2025-06-17 16:43:12,379 - torch_weather - INFO - Epoch 16: Train Loss = 0.0493 | Val Loss = 0.0383
+2025-06-17 16:43:14,342 - torch_weather - INFO - Epoch 17: Train Loss = 0.0482 | Val Loss = 0.0366
+2025-06-17 16:43:15,957 - torch_weather - INFO - Epoch 18: Train Loss = 0.0473 | Val Loss = 0.0349
+2025-06-17 16:43:17,508 - torch_weather - INFO - Epoch 19: Train Loss = 0.0457 | Val Loss = 0.0338
+2025-06-17 16:43:19,053 - torch_weather - INFO - Epoch 20: Train Loss = 0.0458 | Val Loss = 0.0323
+2025-06-17 16:43:19,093 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:43:24,990 - torch_weather - INFO - Epoch 1: Train Loss = 0.1460 | Val Loss = 0.0626
+2025-06-17 16:43:28,362 - torch_weather - INFO - Epoch 2: Train Loss = 0.0350 | Val Loss = 0.0177
+2025-06-17 16:43:31,800 - torch_weather - INFO - Epoch 3: Train Loss = 0.0235 | Val Loss = 0.0150
+2025-06-17 16:43:35,437 - torch_weather - INFO - Epoch 4: Train Loss = 0.0197 | Val Loss = 0.0147
+2025-06-17 16:43:38,958 - torch_weather - INFO - Epoch 5: Train Loss = 0.0169 | Val Loss = 0.0151
+2025-06-17 16:43:43,399 - torch_weather - INFO - Epoch 6: Train Loss = 0.0165 | Val Loss = 0.0224
+2025-06-17 16:43:46,208 - torch_weather - INFO - Early stopping triggered at epoch: 7
+2025-06-17 16:43:46,208 - torch_weather - INFO - Epoch 7: Train Loss = 0.0155 | Val Loss = 0.0175
+2025-06-17 16:43:46,241 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:43:48,461 - torch_weather - INFO - Epoch 1: Train Loss = 2.9568 | Val Loss = 2.8588
+2025-06-17 16:43:49,962 - torch_weather - INFO - Epoch 2: Train Loss = 2.7980 | Val Loss = 2.6327
+2025-06-17 16:43:51,337 - torch_weather - INFO - Epoch 3: Train Loss = 2.4385 | Val Loss = 2.0300
+2025-06-17 16:43:52,665 - torch_weather - INFO - Epoch 4: Train Loss = 1.4117 | Val Loss = 0.6880
+2025-06-17 16:43:54,029 - torch_weather - INFO - Epoch 5: Train Loss = 0.5077 | Val Loss = 0.1721
+2025-06-17 16:43:55,411 - torch_weather - INFO - Epoch 6: Train Loss = 0.3321 | Val Loss = 0.0777
+2025-06-17 16:43:56,744 - torch_weather - INFO - Epoch 7: Train Loss = 0.3057 | Val Loss = 0.0584
+2025-06-17 16:43:58,087 - torch_weather - INFO - Epoch 8: Train Loss = 0.2954 | Val Loss = 0.0538
+2025-06-17 16:43:59,597 - torch_weather - INFO - Epoch 9: Train Loss = 0.2858 | Val Loss = 0.0529
+2025-06-17 16:44:00,917 - torch_weather - INFO - Epoch 10: Train Loss = 0.2835 | Val Loss = 0.0540
+2025-06-17 16:44:02,262 - torch_weather - INFO - Epoch 11: Train Loss = 0.2747 | Val Loss = 0.0563
+2025-06-17 16:44:03,627 - torch_weather - INFO - Early stopping triggered at epoch: 12
+2025-06-17 16:44:03,627 - torch_weather - INFO - Epoch 12: Train Loss = 0.2659 | Val Loss = 0.0589
+2025-06-17 16:44:03,653 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:44:06,907 - torch_weather - INFO - Epoch 1: Train Loss = 0.2350 | Val Loss = 0.0425
+2025-06-17 16:44:08,903 - torch_weather - INFO - Epoch 2: Train Loss = 0.1213 | Val Loss = 0.0350
+2025-06-17 16:44:10,885 - torch_weather - INFO - Epoch 3: Train Loss = 0.0947 | Val Loss = 0.0200
+2025-06-17 16:44:13,034 - torch_weather - INFO - Epoch 4: Train Loss = 0.0742 | Val Loss = 0.0184
+2025-06-17 16:44:15,038 - torch_weather - INFO - Epoch 5: Train Loss = 0.0558 | Val Loss = 0.0163
+2025-06-17 16:44:17,060 - torch_weather - INFO - Epoch 6: Train Loss = 0.0426 | Val Loss = 0.0129
+2025-06-17 16:44:19,055 - torch_weather - INFO - Epoch 7: Train Loss = 0.0304 | Val Loss = 0.0110
+2025-06-17 16:44:21,121 - torch_weather - INFO - Epoch 8: Train Loss = 0.0234 | Val Loss = 0.0099
+2025-06-17 16:44:23,103 - torch_weather - INFO - Epoch 9: Train Loss = 0.0174 | Val Loss = 0.0091
+2025-06-17 16:44:25,088 - torch_weather - INFO - Epoch 10: Train Loss = 0.0131 | Val Loss = 0.0076
+2025-06-17 16:44:27,121 - torch_weather - INFO - Epoch 11: Train Loss = 0.0110 | Val Loss = 0.0081
+2025-06-17 16:44:29,095 - torch_weather - INFO - Epoch 12: Train Loss = 0.0093 | Val Loss = 0.0069
+2025-06-17 16:44:31,125 - torch_weather - INFO - Epoch 13: Train Loss = 0.0085 | Val Loss = 0.0069
+2025-06-17 16:44:33,105 - torch_weather - INFO - Epoch 14: Train Loss = 0.0084 | Val Loss = 0.0068
+2025-06-17 16:44:35,095 - torch_weather - INFO - Epoch 15: Train Loss = 0.0079 | Val Loss = 0.0067
+2025-06-17 16:44:37,072 - torch_weather - INFO - Epoch 16: Train Loss = 0.0076 | Val Loss = 0.0066
+2025-06-17 16:44:39,056 - torch_weather - INFO - Epoch 17: Train Loss = 0.0074 | Val Loss = 0.0070
+2025-06-17 16:44:41,029 - torch_weather - INFO - Epoch 18: Train Loss = 0.0072 | Val Loss = 0.0067
+2025-06-17 16:44:43,105 - torch_weather - INFO - Early stopping triggered at epoch: 19
+2025-06-17 16:44:43,105 - torch_weather - INFO - Epoch 19: Train Loss = 0.0067 | Val Loss = 0.0069
+2025-06-17 16:44:43,129 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:44:49,171 - torch_weather - INFO - Epoch 1: Train Loss = 0.1969 | Val Loss = 0.0156
+2025-06-17 16:44:53,404 - torch_weather - INFO - Epoch 2: Train Loss = 0.0426 | Val Loss = 0.0091
+2025-06-17 16:44:58,923 - torch_weather - INFO - Epoch 3: Train Loss = 0.0358 | Val Loss = 0.0091
+2025-06-17 16:45:03,726 - torch_weather - INFO - Epoch 4: Train Loss = 0.0331 | Val Loss = 0.0077
+2025-06-17 16:45:08,166 - torch_weather - INFO - Epoch 5: Train Loss = 0.0317 | Val Loss = 0.0097
+2025-06-17 16:45:12,418 - torch_weather - INFO - Epoch 6: Train Loss = 0.0307 | Val Loss = 0.0101
+2025-06-17 16:45:16,684 - torch_weather - INFO - Early stopping triggered at epoch: 7
+2025-06-17 16:45:16,685 - torch_weather - INFO - Epoch 7: Train Loss = 0.0300 | Val Loss = 0.0125
+2025-06-17 16:45:16,713 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:45:21,334 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:45:23,777 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:45:25,875 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:45:29,575 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:45:30,903 - torch_weather - INFO - Epoch 1: Train Loss = 0.3676 | Val Loss = 0.0298
+2025-06-17 16:45:32,231 - torch_weather - INFO - Epoch 2: Train Loss = 0.1046 | Val Loss = 0.0191
+2025-06-17 16:45:33,585 - torch_weather - INFO - Epoch 3: Train Loss = 0.0958 | Val Loss = 0.0170
+2025-06-17 16:45:35,332 - torch_weather - INFO - Epoch 4: Train Loss = 0.0829 | Val Loss = 0.0148
+2025-06-17 16:45:37,884 - torch_weather - INFO - Epoch 5: Train Loss = 0.0726 | Val Loss = 0.0110
+2025-06-17 16:45:39,464 - torch_weather - INFO - Epoch 6: Train Loss = 0.0661 | Val Loss = 0.0110
+2025-06-17 16:45:40,826 - torch_weather - INFO - Epoch 7: Train Loss = 0.0577 | Val Loss = 0.0105
+2025-06-17 16:45:42,264 - torch_weather - INFO - Epoch 8: Train Loss = 0.0513 | Val Loss = 0.0097
+2025-06-17 16:45:43,649 - torch_weather - INFO - Epoch 9: Train Loss = 0.0446 | Val Loss = 0.0095
+2025-06-17 16:45:45,018 - torch_weather - INFO - Epoch 10: Train Loss = 0.0384 | Val Loss = 0.0089
+2025-06-17 16:45:46,407 - torch_weather - INFO - Epoch 11: Train Loss = 0.0342 | Val Loss = 0.0091
+2025-06-17 16:45:47,798 - torch_weather - INFO - Epoch 12: Train Loss = 0.0285 | Val Loss = 0.0077
+2025-06-17 16:45:49,160 - torch_weather - INFO - Epoch 13: Train Loss = 0.0249 | Val Loss = 0.0075
+2025-06-17 16:45:50,699 - torch_weather - INFO - Epoch 14: Train Loss = 0.0214 | Val Loss = 0.0073
+2025-06-17 16:45:52,107 - torch_weather - INFO - Epoch 15: Train Loss = 0.0188 | Val Loss = 0.0072
+2025-06-17 16:45:53,501 - torch_weather - INFO - Epoch 16: Train Loss = 0.0166 | Val Loss = 0.0072
+2025-06-17 16:45:54,892 - torch_weather - INFO - Epoch 17: Train Loss = 0.0145 | Val Loss = 0.0066
+2025-06-17 16:45:56,281 - torch_weather - INFO - Epoch 18: Train Loss = 0.0126 | Val Loss = 0.0070
+2025-06-17 16:45:57,719 - torch_weather - INFO - Epoch 19: Train Loss = 0.0118 | Val Loss = 0.0066
+2025-06-17 16:45:59,098 - torch_weather - INFO - Epoch 20: Train Loss = 0.0108 | Val Loss = 0.0064
+2025-06-17 16:45:59,141 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:46:01,120 - torch_weather - INFO - Best trial:
+2025-06-17 16:46:01,120 - torch_weather - INFO - Value: 0.006396065963075891
+2025-06-17 16:46:01,121 - torch_weather - INFO - Params: {'hidden_size': 21, 'num_layers': 1, 'dropout': 0.20726902541387782, 'lr': 0.0016875450376904106}
+2025-06-17 16:46:02,813 - torch_weather - INFO - Epoch 1: Train Loss = 0.2953
+2025-06-17 16:46:04,376 - torch_weather - INFO - Epoch 2: Train Loss = 0.0920
+2025-06-17 16:46:05,892 - torch_weather - INFO - Epoch 3: Train Loss = 0.0828
+2025-06-17 16:46:07,421 - torch_weather - INFO - Epoch 4: Train Loss = 0.0769
+2025-06-17 16:46:08,958 - torch_weather - INFO - Epoch 5: Train Loss = 0.0718
+2025-06-17 16:46:10,510 - torch_weather - INFO - Epoch 6: Train Loss = 0.0643
+2025-06-17 16:46:12,002 - torch_weather - INFO - Epoch 7: Train Loss = 0.0571
+2025-06-17 16:46:13,519 - torch_weather - INFO - Epoch 8: Train Loss = 0.0496
+2025-06-17 16:46:15,019 - torch_weather - INFO - Epoch 9: Train Loss = 0.0410
+2025-06-17 16:46:16,523 - torch_weather - INFO - Epoch 10: Train Loss = 0.0345
+2025-06-17 16:46:18,037 - torch_weather - INFO - Epoch 11: Train Loss = 0.0305
+2025-06-17 16:46:19,546 - torch_weather - INFO - Epoch 12: Train Loss = 0.0255
+2025-06-17 16:46:21,042 - torch_weather - INFO - Epoch 13: Train Loss = 0.0214
+2025-06-17 16:46:22,527 - torch_weather - INFO - Epoch 14: Train Loss = 0.0185
+2025-06-17 16:46:24,029 - torch_weather - INFO - Epoch 15: Train Loss = 0.0157
+2025-06-17 16:46:25,537 - torch_weather - INFO - Epoch 16: Train Loss = 0.0136
+2025-06-17 16:46:27,057 - torch_weather - INFO - Epoch 17: Train Loss = 0.0119
+2025-06-17 16:46:28,560 - torch_weather - INFO - Epoch 18: Train Loss = 0.0108
+2025-06-17 16:46:30,057 - torch_weather - INFO - Epoch 19: Train Loss = 0.0098
+2025-06-17 16:46:31,566 - torch_weather - INFO - Epoch 20: Train Loss = 0.0089
+2025-06-17 16:46:31,652 - torch_weather - INFO - 
+Test RMSE (original scale): 4.7502
+2025-06-17 16:46:31,652 - torch_weather - INFO - Test MAE  (original scale): 3.2427
+2025-06-17 16:51:28,841 - torch_weather - INFO - Started MLflow run: 68298568371640b9a92fcc1a53bf9652
+2025-06-17 16:51:34,412 - torch_weather - INFO - Epoch 1: Train Loss = 1.1845 | Val Loss = 0.0603
+2025-06-17 16:51:36,422 - torch_weather - INFO - Epoch 2: Train Loss = 0.0985 | Val Loss = 0.0472
+2025-06-17 16:51:38,427 - torch_weather - INFO - Epoch 3: Train Loss = 0.0891 | Val Loss = 0.0307
+2025-06-17 16:51:40,445 - torch_weather - INFO - Epoch 4: Train Loss = 0.0812 | Val Loss = 0.0189
+2025-06-17 16:51:42,483 - torch_weather - INFO - Epoch 5: Train Loss = 0.0759 | Val Loss = 0.0151
+2025-06-17 16:51:44,499 - torch_weather - INFO - Epoch 6: Train Loss = 0.0705 | Val Loss = 0.0131
+2025-06-17 16:51:46,502 - torch_weather - INFO - Epoch 7: Train Loss = 0.0672 | Val Loss = 0.0116
+2025-06-17 16:51:48,504 - torch_weather - INFO - Epoch 8: Train Loss = 0.0661 | Val Loss = 0.0115
+2025-06-17 16:51:50,512 - torch_weather - INFO - Epoch 9: Train Loss = 0.0642 | Val Loss = 0.0128
+2025-06-17 16:51:52,522 - torch_weather - INFO - Epoch 10: Train Loss = 0.0630 | Val Loss = 0.0108
+2025-06-17 16:51:54,580 - torch_weather - INFO - Epoch 11: Train Loss = 0.0601 | Val Loss = 0.0117
+2025-06-17 16:51:56,588 - torch_weather - INFO - Epoch 12: Train Loss = 0.0603 | Val Loss = 0.0106
+2025-06-17 16:51:58,613 - torch_weather - INFO - Epoch 13: Train Loss = 0.0584 | Val Loss = 0.0096
+2025-06-17 16:52:00,730 - torch_weather - INFO - Epoch 14: Train Loss = 0.0579 | Val Loss = 0.0102
+2025-06-17 16:52:02,756 - torch_weather - INFO - Epoch 15: Train Loss = 0.0576 | Val Loss = 0.0091
+2025-06-17 16:52:04,987 - torch_weather - INFO - Epoch 16: Train Loss = 0.0583 | Val Loss = 0.0094
+2025-06-17 16:52:06,995 - torch_weather - INFO - Epoch 17: Train Loss = 0.0564 | Val Loss = 0.0093
+2025-06-17 16:52:09,014 - torch_weather - INFO - Early stopping triggered at epoch: 18
+2025-06-17 16:52:09,014 - torch_weather - INFO - Epoch 18: Train Loss = 0.0563 | Val Loss = 0.0099
+2025-06-17 16:52:09,050 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:52:13,222 - torch_weather - INFO - Epoch 1: Train Loss = 0.2726 | Val Loss = 0.0241
+2025-06-17 16:52:14,569 - torch_weather - INFO - Epoch 2: Train Loss = 0.1340 | Val Loss = 0.0219
+2025-06-17 16:52:15,940 - torch_weather - INFO - Epoch 3: Train Loss = 0.1047 | Val Loss = 0.0221
+2025-06-17 16:52:17,282 - torch_weather - INFO - Epoch 4: Train Loss = 0.0771 | Val Loss = 0.0200
+2025-06-17 16:52:18,604 - torch_weather - INFO - Epoch 5: Train Loss = 0.0602 | Val Loss = 0.0195
+2025-06-17 16:52:19,958 - torch_weather - INFO - Epoch 6: Train Loss = 0.0461 | Val Loss = 0.0195
+2025-06-17 16:52:21,303 - torch_weather - INFO - Epoch 7: Train Loss = 0.0361 | Val Loss = 0.0185
+2025-06-17 16:52:22,632 - torch_weather - INFO - Epoch 8: Train Loss = 0.0303 | Val Loss = 0.0189
+2025-06-17 16:52:23,998 - torch_weather - INFO - Epoch 9: Train Loss = 0.0247 | Val Loss = 0.0156
+2025-06-17 16:52:25,345 - torch_weather - INFO - Epoch 10: Train Loss = 0.0171 | Val Loss = 0.0130
+2025-06-17 16:52:26,678 - torch_weather - INFO - Epoch 11: Train Loss = 0.0130 | Val Loss = 0.0087
+2025-06-17 16:52:28,802 - torch_weather - INFO - Epoch 12: Train Loss = 0.0112 | Val Loss = 0.0093
+2025-06-17 16:52:30,156 - torch_weather - INFO - Epoch 13: Train Loss = 0.0101 | Val Loss = 0.0083
+2025-06-17 16:52:31,505 - torch_weather - INFO - Epoch 14: Train Loss = 0.0094 | Val Loss = 0.0091
+2025-06-17 16:52:32,850 - torch_weather - INFO - Epoch 15: Train Loss = 0.0088 | Val Loss = 0.0091
+2025-06-17 16:52:34,273 - torch_weather - INFO - Epoch 16: Train Loss = 0.0088 | Val Loss = 0.0080
+2025-06-17 16:52:35,673 - torch_weather - INFO - Epoch 17: Train Loss = 0.0083 | Val Loss = 0.0084
+2025-06-17 16:52:37,001 - torch_weather - INFO - Epoch 18: Train Loss = 0.0082 | Val Loss = 0.0085
+2025-06-17 16:52:38,340 - torch_weather - INFO - Epoch 19: Train Loss = 0.0080 | Val Loss = 0.0078
+2025-06-17 16:52:39,684 - torch_weather - INFO - Epoch 20: Train Loss = 0.0082 | Val Loss = 0.0072
+2025-06-17 16:52:39,710 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:52:43,217 - torch_weather - INFO - Epoch 1: Train Loss = 0.1649 | Val Loss = 0.0157
+2025-06-17 16:52:44,820 - torch_weather - INFO - Epoch 2: Train Loss = 0.0280 | Val Loss = 0.0136
+2025-06-17 16:52:46,398 - torch_weather - INFO - Epoch 3: Train Loss = 0.0238 | Val Loss = 0.0155
+2025-06-17 16:52:47,981 - torch_weather - INFO - Epoch 4: Train Loss = 0.0217 | Val Loss = 0.0161
+2025-06-17 16:52:49,523 - torch_weather - INFO - Early stopping triggered at epoch: 5
+2025-06-17 16:52:49,523 - torch_weather - INFO - Epoch 5: Train Loss = 0.0204 | Val Loss = 0.0179
+2025-06-17 16:52:49,552 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:52:52,522 - torch_weather - INFO - Epoch 1: Train Loss = 2.4599 | Val Loss = 1.3953
+2025-06-17 16:52:54,628 - torch_weather - INFO - Epoch 2: Train Loss = 0.6500 | Val Loss = 0.1988
+2025-06-17 16:52:56,701 - torch_weather - INFO - Epoch 3: Train Loss = 0.2001 | Val Loss = 0.0560
+2025-06-17 16:52:58,784 - torch_weather - INFO - Epoch 4: Train Loss = 0.1449 | Val Loss = 0.0366
+2025-06-17 16:53:00,905 - torch_weather - INFO - Epoch 5: Train Loss = 0.1361 | Val Loss = 0.0339
+2025-06-17 16:53:03,006 - torch_weather - INFO - Epoch 6: Train Loss = 0.1344 | Val Loss = 0.0334
+2025-06-17 16:53:06,408 - torch_weather - INFO - Epoch 7: Train Loss = 0.1345 | Val Loss = 0.0336
+2025-06-17 16:53:10,526 - torch_weather - INFO - Epoch 8: Train Loss = 0.1292 | Val Loss = 0.0343
+2025-06-17 16:53:12,794 - torch_weather - INFO - Early stopping triggered at epoch: 9
+2025-06-17 16:53:12,794 - torch_weather - INFO - Epoch 9: Train Loss = 0.1223 | Val Loss = 0.0383
+2025-06-17 16:53:12,819 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:53:18,456 - torch_weather - INFO - Epoch 1: Train Loss = 2.9583 | Val Loss = 2.4689
+2025-06-17 16:53:25,049 - torch_weather - INFO - Epoch 2: Train Loss = 0.7415 | Val Loss = 0.0504
+2025-06-17 16:53:29,841 - torch_weather - INFO - Epoch 3: Train Loss = 0.1820 | Val Loss = 0.0301
+2025-06-17 16:53:34,084 - torch_weather - INFO - Epoch 4: Train Loss = 0.1692 | Val Loss = 0.0337
+2025-06-17 16:53:38,471 - torch_weather - INFO - Epoch 5: Train Loss = 0.1609 | Val Loss = 0.0363
+2025-06-17 16:53:42,931 - torch_weather - INFO - Epoch 6: Train Loss = 0.1489 | Val Loss = 0.0294
+2025-06-17 16:53:47,103 - torch_weather - INFO - Epoch 7: Train Loss = 0.1429 | Val Loss = 0.0223
+2025-06-17 16:53:51,306 - torch_weather - INFO - Epoch 8: Train Loss = 0.1387 | Val Loss = 0.0198
+2025-06-17 16:53:55,497 - torch_weather - INFO - Epoch 9: Train Loss = 0.1329 | Val Loss = 0.0182
+2025-06-17 16:53:59,732 - torch_weather - INFO - Epoch 10: Train Loss = 0.1308 | Val Loss = 0.0161
+2025-06-17 16:54:03,929 - torch_weather - INFO - Epoch 11: Train Loss = 0.1245 | Val Loss = 0.0147
+2025-06-17 16:54:08,129 - torch_weather - INFO - Epoch 12: Train Loss = 0.1207 | Val Loss = 0.0132
+2025-06-17 16:54:12,294 - torch_weather - INFO - Epoch 13: Train Loss = 0.1178 | Val Loss = 0.0129
+2025-06-17 16:54:16,471 - torch_weather - INFO - Epoch 14: Train Loss = 0.1167 | Val Loss = 0.0123
+2025-06-17 16:54:20,658 - torch_weather - INFO - Epoch 15: Train Loss = 0.1127 | Val Loss = 0.0112
+2025-06-17 16:54:24,829 - torch_weather - INFO - Epoch 16: Train Loss = 0.1132 | Val Loss = 0.0113
+2025-06-17 16:54:28,995 - torch_weather - INFO - Epoch 17: Train Loss = 0.1098 | Val Loss = 0.0112
+2025-06-17 16:54:33,147 - torch_weather - INFO - Epoch 18: Train Loss = 0.1092 | Val Loss = 0.0106
+2025-06-17 16:54:37,320 - torch_weather - INFO - Epoch 19: Train Loss = 0.1085 | Val Loss = 0.0100
+2025-06-17 16:54:41,464 - torch_weather - INFO - Epoch 20: Train Loss = 0.1081 | Val Loss = 0.0112
+2025-06-17 16:54:41,496 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:54:45,841 - torch_weather - INFO - Epoch 1: Train Loss = 0.8782 | Val Loss = 0.0481
+2025-06-17 16:54:48,279 - torch_weather - INFO - Epoch 2: Train Loss = 0.1541 | Val Loss = 0.0315
+2025-06-17 16:54:50,728 - torch_weather - INFO - Epoch 3: Train Loss = 0.1314 | Val Loss = 0.0161
+2025-06-17 16:54:53,155 - torch_weather - INFO - Epoch 4: Train Loss = 0.1249 | Val Loss = 0.0122
+2025-06-17 16:54:55,599 - torch_weather - INFO - Epoch 5: Train Loss = 0.1164 | Val Loss = 0.0118
+2025-06-17 16:54:58,042 - torch_weather - INFO - Epoch 6: Train Loss = 0.1129 | Val Loss = 0.0108
+2025-06-17 16:55:00,490 - torch_weather - INFO - Epoch 7: Train Loss = 0.1081 | Val Loss = 0.0111
+2025-06-17 16:55:02,933 - torch_weather - INFO - Epoch 8: Train Loss = 0.1042 | Val Loss = 0.0105
+2025-06-17 16:55:05,386 - torch_weather - INFO - Epoch 9: Train Loss = 0.1037 | Val Loss = 0.0105
+2025-06-17 16:55:07,846 - torch_weather - INFO - Epoch 10: Train Loss = 0.1002 | Val Loss = 0.0091
+2025-06-17 16:55:10,275 - torch_weather - INFO - Epoch 11: Train Loss = 0.0971 | Val Loss = 0.0093
+2025-06-17 16:55:12,701 - torch_weather - INFO - Epoch 12: Train Loss = 0.0938 | Val Loss = 0.0106
+2025-06-17 16:55:15,143 - torch_weather - INFO - Early stopping triggered at epoch: 13
+2025-06-17 16:55:15,143 - torch_weather - INFO - Epoch 13: Train Loss = 0.0905 | Val Loss = 0.0109
+2025-06-17 16:55:15,169 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:55:20,569 - torch_weather - INFO - Epoch 1: Train Loss = 0.8986 | Val Loss = 0.0303
+2025-06-17 16:55:24,438 - torch_weather - INFO - Epoch 2: Train Loss = 0.0535 | Val Loss = 0.0188
+2025-06-17 16:55:28,294 - torch_weather - INFO - Epoch 3: Train Loss = 0.0450 | Val Loss = 0.0143
+2025-06-17 16:55:32,717 - torch_weather - INFO - Epoch 4: Train Loss = 0.0383 | Val Loss = 0.0112
+2025-06-17 16:55:36,592 - torch_weather - INFO - Epoch 5: Train Loss = 0.0370 | Val Loss = 0.0103
+2025-06-17 16:55:40,461 - torch_weather - INFO - Epoch 6: Train Loss = 0.0348 | Val Loss = 0.0094
+2025-06-17 16:55:44,363 - torch_weather - INFO - Epoch 7: Train Loss = 0.0340 | Val Loss = 0.0095
+2025-06-17 16:55:48,234 - torch_weather - INFO - Epoch 8: Train Loss = 0.0334 | Val Loss = 0.0108
+2025-06-17 16:55:52,100 - torch_weather - INFO - Early stopping triggered at epoch: 9
+2025-06-17 16:55:52,100 - torch_weather - INFO - Epoch 9: Train Loss = 0.0328 | Val Loss = 0.0095
+2025-06-17 16:55:52,126 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:55:57,140 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:55:59,174 - torch_weather - INFO - Epoch 1: Train Loss = 0.5075 | Val Loss = 0.0301
+2025-06-17 16:56:01,597 - torch_weather - INFO - Epoch 2: Train Loss = 0.1043 | Val Loss = 0.0186
+2025-06-17 16:56:04,775 - torch_weather - INFO - Epoch 3: Train Loss = 0.0896 | Val Loss = 0.0124
+2025-06-17 16:56:07,787 - torch_weather - INFO - Epoch 4: Train Loss = 0.0850 | Val Loss = 0.0106
+2025-06-17 16:56:11,142 - torch_weather - INFO - Epoch 5: Train Loss = 0.0810 | Val Loss = 0.0092
+2025-06-17 16:56:14,032 - torch_weather - INFO - Epoch 6: Train Loss = 0.0768 | Val Loss = 0.0094
+2025-06-17 16:56:16,737 - torch_weather - INFO - Epoch 7: Train Loss = 0.0748 | Val Loss = 0.0117
+2025-06-17 16:56:21,975 - torch_weather - INFO - Epoch 8: Train Loss = 0.0716 | Val Loss = 0.0078
+2025-06-17 16:56:24,529 - torch_weather - INFO - Epoch 9: Train Loss = 0.0688 | Val Loss = 0.0077
+2025-06-17 16:56:27,216 - torch_weather - INFO - Epoch 10: Train Loss = 0.0665 | Val Loss = 0.0078
+2025-06-17 16:56:29,999 - torch_weather - INFO - Epoch 11: Train Loss = 0.0625 | Val Loss = 0.0091
+2025-06-17 16:56:32,889 - torch_weather - INFO - Early stopping triggered at epoch: 12
+2025-06-17 16:56:32,890 - torch_weather - INFO - Epoch 12: Train Loss = 0.0589 | Val Loss = 0.0081
+2025-06-17 16:56:32,920 - torch_weather - INFO - Logging results from nested run
+2025-06-17 16:56:35,622 - torch_weather - INFO - Epoch 1: Train Loss = 0.1738 | Val Loss = 0.0235
+2025-06-17 16:56:36,992 - torch_weather - INFO - Epoch 2: Train Loss = 0.0539 | Val Loss = 0.0199
+2025-06-17 16:56:38,346 - torch_weather - INFO - Optuna pruning trial
+2025-06-17 16:56:38,347 - torch_weather - INFO - Best trial:
+2025-06-17 16:56:38,347 - torch_weather - INFO - Value: 0.00720813152094541
+2025-06-17 16:56:38,347 - torch_weather - INFO - Params: {'hidden_size': 26, 'num_layers': 1, 'dropout': 0.37859702356973, 'lr': 0.003615943129950741}
+2025-06-17 16:56:39,753 - torch_weather - INFO - Epoch 1: Train Loss = 0.2851
+2025-06-17 16:56:41,156 - torch_weather - INFO - Epoch 2: Train Loss = 0.1216
+2025-06-17 16:56:42,644 - torch_weather - INFO - Epoch 3: Train Loss = 0.0855
+2025-06-17 16:56:44,154 - torch_weather - INFO - Epoch 4: Train Loss = 0.0540
+2025-06-17 16:56:45,541 - torch_weather - INFO - Epoch 5: Train Loss = 0.0334
+2025-06-17 16:56:46,910 - torch_weather - INFO - Epoch 6: Train Loss = 0.0212
+2025-06-17 16:56:48,286 - torch_weather - INFO - Epoch 7: Train Loss = 0.0151
+2025-06-17 16:56:49,671 - torch_weather - INFO - Epoch 8: Train Loss = 0.0124
+2025-06-17 16:56:51,026 - torch_weather - INFO - Epoch 9: Train Loss = 0.0111
+2025-06-17 16:56:52,403 - torch_weather - INFO - Epoch 10: Train Loss = 0.0104
+2025-06-17 16:56:53,783 - torch_weather - INFO - Epoch 11: Train Loss = 0.0099
+2025-06-17 16:56:55,147 - torch_weather - INFO - Epoch 12: Train Loss = 0.0092
+2025-06-17 16:56:56,537 - torch_weather - INFO - Epoch 13: Train Loss = 0.0094
+2025-06-17 16:56:57,935 - torch_weather - INFO - Epoch 14: Train Loss = 0.0089
+2025-06-17 16:56:59,317 - torch_weather - INFO - Epoch 15: Train Loss = 0.0086
+2025-06-17 16:57:00,706 - torch_weather - INFO - Epoch 16: Train Loss = 0.0085
+2025-06-17 16:57:02,094 - torch_weather - INFO - Epoch 17: Train Loss = 0.0080
+2025-06-17 16:57:03,463 - torch_weather - INFO - Epoch 18: Train Loss = 0.0078
+2025-06-17 16:57:04,893 - torch_weather - INFO - Epoch 19: Train Loss = 0.0081
+2025-06-17 16:57:06,272 - torch_weather - INFO - Epoch 20: Train Loss = 0.0074
+2025-06-17 16:57:06,349 - torch_weather - INFO - 
+Test RMSE (original scale): 5.2144
+2025-06-17 16:57:06,349 - torch_weather - INFO - Test MAE  (original scale): 3.3217
+2025-06-17 16:57:06,349 - torch_weather - INFO - Logging final model fit and parameters
