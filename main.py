@@ -9,10 +9,11 @@ from src.transformers.time_transformer import AirQualityProcessor
 from src.datasets.weather_dataset import WeatherDataset
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
-from src.model.model_tuning import AirQualityFitHelper, create_objective
+from src.model_class.model_tuning import AirQualityFitHelper, create_objective
 from src.utils.mlflow_manager import MLFlowLogger
 from src.utils.init_logger import create_logger
 import logging
+import mlflow
 
 load_dotenv()
 set_config(transform_output="pandas")
@@ -20,7 +21,6 @@ logger = create_logger(name="torch_weather")
 
 
 def main():
-
     with DatabaseConnection() as conn:
         df = pd.read_sql(
             """
@@ -39,7 +39,6 @@ def main():
         .set_index("_time")
     )
     df["_time"] = df.index
-
     # -------- TRAIN-TEST SPLIT ------------
     train, val, test = time_series_split(df=df)
 

@@ -7,8 +7,8 @@ import torch.optim as optim
 import numpy as np
 from sklearn.metrics import mean_absolute_error, root_mean_squared_error
 from torch.utils.data import DataLoader
-from src.model.weather_model import WeatherLSTM
-from src.model.early_stopper import EarlyStopping
+from src.model_class.weather_model import WeatherLSTM
+from src.model_class.early_stopper import EarlyStopping
 from src.datasets.weather_dataset import WeatherDataset
 from pandas import DataFrame, Series
 import pandas as pd

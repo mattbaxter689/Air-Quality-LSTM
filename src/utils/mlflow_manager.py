@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 import uuid
 from typing import Self
-from src.model.weather_model import WeatherLSTM
+from src.model_class.weather_model import WeatherLSTM
 from src.transformers.time_transformer import AirQualityProcessor
 import joblib
 import logging
@@ -110,14 +110,22 @@ class MLFlowLogger:
         mlflow.set_experiment(self.final_run_name)
         with mlflow.start_run(
             run_name="final_model_" + str(uuid.uuid4())[:8], nested=True
-        ):
+        ) as run:
             mlflow.log_params(params)
             for i, t in enumerate(train_loss):
                 mlflow.log_metric("train_loss", t, step=i)
             mlflow.log_metric("test_rmse", test_rmse)
             mlflow.log_metric("test_mae", test_mae)
             self._log_loss_plot(train_loss, "figures/final_model_loss.png")
-            mlflow.pytorch.log_model(model, name="lstm_model")
+            mlflow.pytorch.log_model(
+                model,
+                name="model",
+                code_paths=["src"],
+            )
+            run_id = run.info.run_id
+            model_uri = f"runs:/{run_id}/model"
+            result = mlflow.register_model(model_uri, "air_quality")
+            mlflow.set_tag("status", "Production")
 
             if processor is not None:
                 self.log_pipeline(processor=processor)

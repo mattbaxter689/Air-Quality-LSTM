@@ -19,9 +19,16 @@ services:
     image: minio/minio
     container_name: mlflow_minio
     command: server /data --console-address ":9001"
+    healthcheck:
+      test: timeout 5s bash -c ':> /dev/tcp/127.0.0.1/9000' || exit 1
+      interval: 1s
+      timeout: 10s
+      retries: 5
     environment:
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin
+    expose:
+      - "9000"
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -41,7 +48,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      MLFLOW_S3_ENDPOINT_URL: http://mlflow_minio:9000
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
       AWS_ACCESS_KEY_ID: minioadmin
       AWS_SECRET_ACCESS_KEY: minioadmin
     command: >
@@ -52,7 +59,19 @@ services:
         --port 5000
     networks:
       - mlflow-net
-
+  minio-create-bucket:
+    image: minio/mc
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      bash -c "
+      mc alias set minio http://minio:9000 minioadmin minioadmin &&
+      mc mb --ignore-existing minio/mlflow && \
+      mc anonymous set public minio/mlflow
+      "
+    networks:
+      - mlflow-net
 volumes:
   postgres_data:
   minio_data:

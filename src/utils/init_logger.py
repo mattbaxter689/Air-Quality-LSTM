@@ -20,7 +20,7 @@ def create_logger(name: str = "torch_weather") -> logging.Logger:
         ch.setLevel(logging.INFO)
 
         # File handler
-        fh = logging.FileHandler("logs/torch_weather.log")
+        fh = logging.FileHandler(f"logs/{name}.log")
         fh.setLevel(logging.INFO)
 
         # Formatter
