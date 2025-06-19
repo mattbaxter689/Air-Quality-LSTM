@@ -2,5 +2,5 @@
 .env
 __pycache__/*
 __pycache__/
-figures/
-logs/torch_weather.logs
+logs/torch_weather.log
+src/exploration/
