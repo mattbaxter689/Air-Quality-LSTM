@@ -59,19 +59,19 @@ services:
         --port 5000
     networks:
       - rust_kafka_kafka-net
-  minio-create-bucket:
-    image: minio/mc
-    depends_on:
-      minio:
-        condition: service_healthy
-    entrypoint: >
-      bash -c "
-      mc alias set minio http://minio:9000 minioadmin minioadmin &&
-      mc mb --ignore-existing minio/mlflow && \
-      mc anonymous set public minio/mlflow
-      "
-    networks:
-      - rust_kafka_kafka-net
+  # minio-create-bucket:
+  #   image: minio/mc
+  #   depends_on:
+  #     minio:
+  #       condition: service_healthy
+  #   entrypoint: >
+  #     bash -c "
+  #     mc alias set minio http://minio:9000 minioadmin minioadmin &&
+  #     mc mb --ignore-existing minio/mlflow && \
+  #     mc anonymous set public minio/mlflow
+  #     "
+  #   networks:
+  #     - rust_kafka_kafka-net
 volumes:
   postgres_data:
   minio_data:
