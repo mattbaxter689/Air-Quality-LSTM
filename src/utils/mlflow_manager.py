@@ -22,7 +22,7 @@ class MLFlowLogger:
     def __init__(
         self,
         experiment_name: str = "air_quality_experiment",
-        tracking_uri: str | None = "http://localhost:5000",
+        tracking_uri: str | None = "http://mlflow:5000",
     ) -> None:
         """
         Initialize mlflow logger class
