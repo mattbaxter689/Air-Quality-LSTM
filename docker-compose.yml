@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - mlflow-net
+      - rust_kafka_kafka-net
 
   minio:
     image: minio/minio
@@ -35,12 +35,12 @@ services:
     volumes:
       - minio_data:/data
     networks:
-      - mlflow-net
+      - rust_kafka_kafka-net
 
   mlflow:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.mlflow
     container_name: mlflow_server
     depends_on:
       - postgres
@@ -58,7 +58,7 @@ services:
         --host 0.0.0.0
         --port 5000
     networks:
-      - mlflow-net
+      - rust_kafka_kafka-net
   minio-create-bucket:
     image: minio/mc
     depends_on:
@@ -71,10 +71,11 @@ services:
       mc anonymous set public minio/mlflow
       "
     networks:
-      - mlflow-net
+      - rust_kafka_kafka-net
 volumes:
   postgres_data:
   minio_data:
 
 networks:
-  mlflow-net:
+  rust_kafka_kafka-net:
+    external: true

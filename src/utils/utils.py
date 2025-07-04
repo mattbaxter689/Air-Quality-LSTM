@@ -1,4 +1,5 @@
 import pandas as pd
+from src.utils.db_utils import DatabaseConnection
 
 
 def time_series_split(
@@ -23,4 +24,26 @@ def time_series_split(
     val_df = df.iloc[train_end:val_end]
     test_df = df.iloc[val_end:]
 
+    publish_validation_data(val=val_df)
+
     return train_df, val_df, test_df
+
+
+def publish_validation_data(val: pd.DataFrame) -> None:
+    """
+    Publish validation data from model training to db for
+    checking data drift
+
+    Args:
+        val (pd.DataFrame): The dataframe to upload
+
+    Returns:
+        None: None
+    """
+
+    with DatabaseConnection() as conn:
+        val.to_sql(
+            "validation_data", con=conn, if_exists="replace", index=False
+        )
+
+    return None
