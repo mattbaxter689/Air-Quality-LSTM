@@ -27,3 +27,13 @@ dependencies = [
 dev = [
     "ipykernel>=6.29.5",
 ]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name="pytorch-cpu"
+url="https://download.pytorch.org/whl/cpu"
+explicit=true
