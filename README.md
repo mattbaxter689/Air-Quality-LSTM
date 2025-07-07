@@ -13,7 +13,7 @@ restriction in a 2017 macbook pro that is nearly out of storage and only 8GB of
 RAM. Given this, I wanted something that could perform well with very tight
 requirements like this. Obviously if I had access to a better system and GPU's
 I could explore something like Transformers to model this, but I am satisfied
-with the performance of this model for now
+with the performance of this model for now. We also make use of a lookback window of 12 timepoints (the last 12 hours) to help with prediciting the next hour's air quality
 
 ### Data Transformation
 Within the data included in this model, air quality is the main thing we wish to
