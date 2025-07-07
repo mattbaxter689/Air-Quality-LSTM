@@ -74,5 +74,4 @@ said, we have a fairly small dataset in terms of deep learning needs, and found
 that I was getting an RMSE between 3-4 for the final model fits. An example
 figure below shows the predicted vs actual air quality of a final model fits
 
-![example curve](./figures/actual_predictions_overlay.png, "Example Predictions on
-Test Data")
+![example curve](./figures/actual_predictions_overlay.png)
