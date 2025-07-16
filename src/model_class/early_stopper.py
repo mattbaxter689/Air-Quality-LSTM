@@ -1,4 +1,8 @@
 class EarlyStopping:
+    """
+    Early stopper to detect if model training should be stopped due to overfit
+    """
+
     def __init__(self, patience=5, min_delta=0.0):
         self.patience = patience
         self.min_delta = min_delta

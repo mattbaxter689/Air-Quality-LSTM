@@ -4,6 +4,10 @@ from sqlalchemy.engine import Engine
 
 
 class DatabaseConnection:
+    """
+    Class instance to create SQLAlchemy enginer into a context manager
+    """
+
     def __init__(self, conn_str: str | None = None):
         if isinstance(conn_str, type(None)):
             self.conn_str = os.getenv("DATABASE_URL")

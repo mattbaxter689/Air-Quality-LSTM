@@ -20,6 +20,10 @@ logger = logging.getLogger("torch_weather")
 
 
 class AirQualityFitHelper:
+    """
+    Helper class to perform hyperparameter optimization and model fit
+    """
+
     def __init__(
         self,
         train_loader: DataLoader,
@@ -43,6 +47,25 @@ class AirQualityFitHelper:
         trial: Trial | None = None,
         use_validation: bool = True,
     ) -> tuple[WeatherLSTM, list[float], list[float] | None]:
+        """
+        Train the LSTM model, using the appropriate Trial object is it is part of
+        hyperparameter tuning, or the validation dataset to perform final
+        model fit
+
+        Args:
+            model (WeatherLSTM): The WeatherLSTM PyTorch model
+            early_stopper (EarlyStopping): The early stopper helper class
+            num_epochs (int, optional): The number of epochs to run model fit for. Defaults to 20.
+            lr (float, optional): The learning rate to use for model fit. Defaults to 1e-3.
+            trial (Trial | None, optional): The optuna Trial object for hyperparameter tuning. Defaults to None.
+            use_validation (bool, optional): Use the validation set to assess fit?. Defaults to True.
+
+        Raises:
+            optuna.exceptions.TrialPruned: If the trial is pruned from Optuna seeing Trial is poor
+
+        Returns:
+            tuple[WeatherLSTM, list[float], list[float] | None]: Return the model fit, training, and validation loss results of the model fit
+        """
         model = model.to(self.device)
         criterion = nn.SmoothL1Loss()
         optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-5)
@@ -114,6 +137,15 @@ class AirQualityFitHelper:
         return model, train_epoch_losses, val_epoch_losses
 
     def test_model(self, model: WeatherLSTM) -> tuple[float, float]:
+        """
+        Assess the model on the testing set
+
+        Args:
+            model (WeatherLSTM): The LSTM PyTorch model
+
+        Returns:
+            tuple[float, float]: Return the RMSE and MSE on the test set
+        """
         preds, targets = [], []
         model.eval()
         with torch.no_grad():
@@ -146,7 +178,22 @@ class AirQualityFitHelper:
         val_target: Series,
         best_params: dict[str, int | float],
         num_epochs: int = 20,
-    ) -> WeatherLSTM:
+    ) -> tuple[WeatherLSTM, list[float]]:
+        """
+        Train the final model on the best hyperparameter combination found
+        during Optuna training
+
+        Args:
+            train_data (DataFrame): The training data as a pandas dataframe
+            val_data (DataFrame): The validation data as a pandas dataframe
+            train_target (Series): The training target
+            val_target (Series): The validation target
+            best_params (dict[str, int  |  float]): Dictionary containing the best hyperparameter values
+            num_epochs (int, optional): The number of epochs to train for. Defaults to 20.
+
+        Returns:
+            WeatherLSTM: The final LSTM model fit
+        """
         combined_data = pd.concat([train_data, val_data]).sort_index(
             ascending=True
         )
@@ -188,10 +235,22 @@ class AirQualityFitHelper:
     def predict_with_timestamps(
         self,
         model: WeatherLSTM,
-        test_df: pd.DataFrame,
+        test_df: DataFrame,
         time_index: pd.Index,
         window_size: int,
-    ) -> pd.Series:
+    ) -> Series:
+        """
+        Helper function to plot air quality predictions with timestamps
+
+        Args:
+            model (WeatherLSTM): THe LSTM model to use
+            test_df (DataFrame): The test data to perform predictions on. No target should be present
+            time_index (pd.Index): The timestamps for the test data
+            window_size (int): The size of the sliding window. This should match the window size of the data loader
+
+        Returns:
+            Series: Predicted air quality values with associated timestamps as index
+        """
         model.eval()
         preds = []
 
@@ -211,12 +270,24 @@ class AirQualityFitHelper:
         # Convert predictions back from log scale
         preds_exp = np.expm1(preds)
 
-        return pd.Series(data=preds_exp, index=pred_index)
+        return Series(data=preds_exp, index=pred_index)
 
 
 def create_objective(
     fit_helper: AirQualityFitHelper, ml_logger: MLFlowLogger
 ) -> Callable[[Trial], float]:
+    """
+    Create the optuna study objective to execute for the hyperparameter
+    tuning experiment
+
+    Args:
+        fit_helper (AirQualityFitHelper): The class that has functionality to handle model fit
+        ml_logger (MLFlowLogger): The logger that will assist with logging to mlflow
+
+    Returns:
+        Callable[[Trial], float]: The objective function for the optuna study
+    """
+
     def objective(trial: Trial) -> float:
         hidden_size = trial.suggest_int("hidden_size", 16, 64)
         num_layers = trial.suggest_int("num_layers", 1, 3)

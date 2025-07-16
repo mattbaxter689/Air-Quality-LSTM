@@ -9,6 +9,11 @@ from sklearn.compose import ColumnTransformer
 
 
 class AddCyclicalTime(BaseEstimator, TransformerMixin):
+    """
+    Custom transformed to add cyclical time features fro timestamps in data
+
+    """
+
     def __init__(self, time_col: str) -> None:
         super().__init__()
         self.time_col = time_col
@@ -55,7 +60,19 @@ class AddCyclicalTime(BaseEstimator, TransformerMixin):
 
 
 class AirQualityProcessor(BaseEstimator, TransformerMixin):
+    """
+    Helper class to create the sklearn pipeline, and use the associated methods to fit and transform the data
+
+    """
+
     def __init__(self, num_cols: list[str], time_col: str) -> None:
+        """
+        Init the class, then create the pipeline to be used
+
+        Args:
+            num_cols (list[str]): The numeric columns to be used
+            time_col (str): The column containing timestamps to transform
+        """
         super().__init__()
         self.num_cols = num_cols
         self.time_col = time_col
@@ -63,6 +80,12 @@ class AirQualityProcessor(BaseEstimator, TransformerMixin):
         self._create_pipeline()
 
     def _create_pipeline(self) -> Pipeline:
+        """
+        Create the sklearn pipeline
+
+        Returns:
+            Pipeline: The custom sklearn pipline class
+        """
         # Create numeric and time pipelines
         # Cyclical encoding time features does not require
         # scaling
