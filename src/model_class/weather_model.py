@@ -11,10 +11,12 @@ class WeatherLSTM(nn.Module):
 
     def __init__(
         self,
-        input_size: int,
+        past_input_size: int,
+        future_input_size: int,
         hidden_size: int = 32,
         num_layers: int = 1,
         dropout: float = 0.2,
+        forecast_len: int = 4,
     ):
         """
         Initialize custom pytorch LSTM model
@@ -29,8 +31,16 @@ class WeatherLSTM(nn.Module):
         self.hidden_size = hidden_size
         self.num_layers = num_layers
 
-        self.lstm = nn.LSTM(
-            input_size=input_size,
+        self.encoder = nn.LSTM(
+            input_size=past_input_size,
+            hidden_size=hidden_size,
+            num_layers=num_layers,
+            batch_first=True,
+            dropout=dropout if num_layers > 1 else 0.0,
+        )
+
+        self.decoder = nn.LSTM(
+            input_size=future_input_size,
             hidden_size=hidden_size,
             num_layers=num_layers,
             batch_first=True,
@@ -38,14 +48,17 @@ class WeatherLSTM(nn.Module):
         )
 
         self.dropout = nn.Dropout(dropout)
+        self.forecast_len = forecast_len
 
         # return 1 output as final
         self.fc = nn.Linear(hidden_size, 1)
 
-    def forward(self, x):
+    def forward(self, x_past, x_future):
+        _, (h, c) = self.encoder(x_past)
 
-        lstm_out, _ = self.lstm(x)
-        last_hidden = lstm_out[:, -1, :]
-        out = self.dropout(last_hidden)
-        out = self.fc(out)
-        return out.squeeze(1)
+        dec_out, _ = self.decoder(x_future, (h, c))
+        dec_out = self.dropout(dec_out)
+
+        out = self.fc(dec_out).squeeze(-1)
+
+        return out

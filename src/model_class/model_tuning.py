@@ -29,13 +29,15 @@ class AirQualityFitHelper:
         train_loader: DataLoader,
         val_loader: DataLoader,
         test_loader: DataLoader,
-        input_size: int,
+        past_input_size: int = 9,
+        future_input_size: int = 6,
         device: str = "cpu",
     ) -> None:
         self.train_loader = train_loader
         self.val_loader = val_loader
         self.test_loader = test_loader
-        self.input_size = input_size
+        self.past_input_size = past_input_size
+        self.future_input_size = future_input_size
         self.device = device
 
     def train_model(
@@ -80,12 +82,14 @@ class AirQualityFitHelper:
             for batch in tqdm(
                 self.train_loader, desc=f"Epoch {epoch+1}/{num_epochs}"
             ):
-                X_batch, y_batch = batch["features"].to(self.device), batch[
-                    "target"
-                ].to(self.device)
+                X_past, X_future, y_batch = (
+                    batch["x_past"].to(self.device),
+                    batch["x_future"].to(self.device),
+                    batch["target"].to(self.device),
+                )
 
                 optimizer.zero_grad()
-                outputs = model(X_batch)
+                outputs = model(X_past, X_future)
                 loss = criterion(outputs, y_batch)
                 loss.backward()
                 optimizer.step()
@@ -102,10 +106,11 @@ class AirQualityFitHelper:
 
                 with torch.no_grad():
                     for batch in self.val_loader:
-                        X_val, y_val = batch["features"].to(
-                            self.device
-                        ), batch["target"].to(self.device)
-                        val_outputs = model(X_val)
+                        X_val_past = batch["x_past"].to(self.device)
+                        X_val_future = batch["x_future"].to(self.device)
+                        y_val = batch["target"].to(self.device)
+
+                        val_outputs = model(X_val_past, X_val_future)
                         val_loss = criterion(val_outputs, y_val)
                         val_losses.append(val_loss.item())
 
@@ -150,8 +155,11 @@ class AirQualityFitHelper:
         model.eval()
         with torch.no_grad():
             for batch in self.test_loader:
-                X_test, y_test = batch["features"], batch["target"]
-                outputs = model(X_test).squeeze()
+                X_test_past = batch["x_past"].to(self.device)
+                X_test_future = batch["x_future"].to(self.device)
+                y_test = batch["target"].to(self.device)
+
+                outputs = model(X_test_past, X_test_future)
                 preds.append(outputs.numpy())
                 targets.append(y_test.numpy())
 
@@ -162,8 +170,10 @@ class AirQualityFitHelper:
         y_pred_real = np.expm1(y_pred_all)
         y_true_real = np.expm1(y_true_all)
 
-        rmse = root_mean_squared_error(y_true_real, y_pred_real)
-        mae = mean_absolute_error(y_true_real, y_pred_real)
+        rmse = root_mean_squared_error(
+            y_true_real.flatten(), y_pred_real.flatten()
+        )
+        mae = mean_absolute_error(y_true_real.flatten(), y_pred_real.flatten())
 
         logger.info(f"Test RMSE (original scale): {rmse:.4f}")
         logger.info(f"Test MAE  (original scale): {mae:.4f}")
@@ -211,7 +221,8 @@ class AirQualityFitHelper:
         )
 
         model = WeatherLSTM(
-            input_size=self.input_size,
+            past_input_size=self.past_input_size,
+            future_input_size=self.future_input_size,
             hidden_size=best_params["hidden_size"],
             num_layers=best_params["num_layers"],
             dropout=best_params["dropout"],
@@ -238,7 +249,8 @@ class AirQualityFitHelper:
         test_df: DataFrame,
         time_index: pd.Index,
         window_size: int,
-    ) -> Series:
+        forecast_len: int = 4,
+    ) -> pd.DataFrame:
         """
         Helper function to plot air quality predictions with timestamps
 
@@ -254,23 +266,54 @@ class AirQualityFitHelper:
         model.eval()
         preds = []
 
+        known_future_cols = [
+            "hour_sin",
+            "hour_cos",
+            "day_sin",
+            "day_cos",
+            "month_sin",
+            "month_cos",
+        ]
+
+        past_value_cols = [
+            col for col in test_df.columns if col not in known_future_cols
+        ]
+        test_past = test_df[past_value_cols].values.astype(np.float32)
+        test_future = test_df[known_future_cols].values.astype(np.float32)
+
         with torch.no_grad():
             # Convert entire test_df to numpy for windowing
             data_np = test_df.values.astype(np.float32)
 
-            for i in range(len(data_np) - window_size):
-                X = data_np[i : i + window_size]
-                X_tensor = torch.tensor(X).unsqueeze(0)  # Add batch dim
-                output = model(X_tensor).squeeze().cpu().numpy()
-                preds.append(output)
+            for i in range(len(test_df) - window_size - forecast_len + 1):
+                x_past = (
+                    torch.tensor(test_past[i : i + window_size])
+                    .unsqueeze(0)
+                    .to(self.device)
+                )
+                x_future = (
+                    torch.tensor(
+                        test_future[
+                            i + window_size : i + window_size + forecast_len
+                        ]
+                    )
+                    .unsqueeze(0)
+                    .to(self.device)
+                )
+
+                output = model(x_past, x_future).cpu().numpy()
+                preds.append(output.squeeze())
 
         # Construct timestamps starting from window_size offset
         pred_index = time_index[window_size : window_size + len(preds)]
 
         # Convert predictions back from log scale
-        preds_exp = np.expm1(preds)
+        columns = [f"t+{i+1}" for i in range(forecast_len)]
+        preds_df = pd.DataFrame(
+            data=np.expm1(preds), index=pred_index, columns=columns
+        )
 
-        return Series(data=preds_exp, index=pred_index)
+        return preds_df
 
 
 def create_objective(
@@ -302,7 +345,8 @@ def create_objective(
         }
 
         model = WeatherLSTM(
-            input_size=fit_helper.input_size,
+            past_input_size=fit_helper.past_input_size,
+            future_input_size=fit_helper.future_input_size,
             hidden_size=hidden_size,
             num_layers=num_layers,
             dropout=dropout,

@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from src.model_class.model_tuning import AirQualityFitHelper, create_objective
 from src.utils.mlflow_manager import MLFlowLogger
 from src.utils.init_logger import create_logger
+import os
 
 load_dotenv()
 set_config(transform_output="pandas")
@@ -86,10 +87,11 @@ def main():
         train_loader=train_loader,
         val_loader=val_loader,
         test_loader=test_loader,
-        input_size=15,
     )
 
-    with MLFlowLogger() as ml_logger:
+    with MLFlowLogger(
+        tracking_uri=os.getenv("MLFLOW_TRACKING_URL")
+    ) as ml_logger:
         objective_func = create_objective(
             fit_helper=trainer, ml_logger=ml_logger
         )
@@ -121,29 +123,36 @@ def main():
             processor=processor,
         )
 
-    predictions_series = trainer.predict_with_timestamps(
+    preds_df = trainer.predict_with_timestamps(
         final_model, test_transformed, test_transformed.index, window_size=12
     )
-    window_size = 12
+    forecast_len = preds_df.shape[1]
 
-    # Align true values with prediction time frame
-    y_true_aligned = np.expm1(test_target.values[window_size:])
-    time_index_aligned = test_target.index[window_size:]
-
-    plt.figure(figsize=(15, 5))
-    plt.plot(time_index_aligned, y_true_aligned, label="True AQI")
+    plt.figure(figsize=(15, 6))
     plt.plot(
-        predictions_series.index,
-        predictions_series.values,
-        linestyle="--",
-        label="Predicted AQI",
+        test_target.index,
+        np.expm1(test_target.values),
+        label="True AQI",
+        color="black",
     )
+
+    # Plot each forecast horizon with different linestyle/color
+    colors = plt.cm.viridis(np.linspace(0, 1, forecast_len))
+    for i, col in enumerate(preds_df.columns):
+        plt.plot(
+            preds_df.index,
+            preds_df[col],
+            label=f"Forecast {col}",
+            linestyle="--",
+            color=colors[i],
+        )
+
     plt.xlabel("Time")
     plt.ylabel("Air Quality Index (AQI)")
-    plt.title("Predictions vs True Values on Test Set")
+    plt.title("Multi-step Forecasts vs True Values on Test Set")
     plt.legend()
     plt.grid(True)
-    plt.savefig("figures/actual_predictions_overlay.png")
+    plt.show()
 
 
 if __name__ == "__main__":

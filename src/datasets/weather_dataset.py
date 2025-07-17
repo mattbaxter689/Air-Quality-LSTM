@@ -13,8 +13,12 @@ class WeatherDataset(Dataset):
     """
 
     def __init__(
-        self, weather: pd.DataFrame, target: pd.Series, window_size: int = 12
-    ):
+        self,
+        weather: pd.DataFrame,
+        target: pd.Series,
+        window_size: int = 12,
+        forecast_len: int = 4,
+    ) -> None:
         """
         Initializes instance of custom weather dataset to be used by pytorch
 
@@ -22,18 +26,52 @@ class WeatherDataset(Dataset):
             weather (pd.DataFrame): Dataframe containing transformed weather data to use. Sorted by time
             target (pd.Series): Target containing air quality data. Sorted by time
             window_size (int, optional): The lookback window to use for the model. Defaults to 12 time points back.
+            forecast_len (int, optional): The number of timesteps to forecast, defaults to 4 time points
         """
         super().__init__()
+
+        known_future_cols = [
+            "hour_sin",
+            "hour_cos",
+            "day_sin",
+            "day_cos",
+            "month_sin",
+            "month_cos",
+        ]
+
+        past_value_cols = [
+            col for col in weather.columns if col not in known_future_cols
+        ]
+
+        self.weather = weather
         self.window_size = window_size
         self.target = target.values.astype(np.float32)
-        self.weather = weather.values.astype(np.float32)
+        self.known_future = weather[known_future_cols].values.astype(
+            np.float32
+        )
+        self.past_vals = weather[past_value_cols].values.astype(np.float32)
+        self.forecast_len = forecast_len
 
     def __len__(self) -> int:
-        return len(self.weather) - self.window_size
+        return len(self.weather) - self.window_size - self.forecast_len + 1
 
-    def __getitem__(self, index) -> dict[str, np.array]:
-        # We want to predict the next value in the window
-        X = self.weather[index : index + self.window_size]
-        y = self.target[index + self.window_size]
+    def __getitem__(self, index) -> dict[str, torch.Tensor]:
+        x_past = self.past_vals[index : index + self.window_size]
+        x_future = self.known_future[
+            index
+            + self.window_size : index
+            + self.window_size
+            + self.forecast_len
+        ]
+        y = self.target[
+            index
+            + self.window_size : index
+            + self.window_size
+            + self.forecast_len
+        ]
 
-        return {"features": torch.tensor(X), "target": torch.tensor(y).float()}
+        return {
+            "x_past": torch.tensor(x_past),
+            "x_future": torch.tensor(x_future),
+            "target": torch.tensor(y).float(),
+        }
