@@ -22,10 +22,12 @@ class WeatherLSTM(nn.Module):
         Initialize custom pytorch LSTM model
 
         Args:
-            input_size (int): The size of input data to use in the model
+            past_input_size (int): The number of known past covariates to supply.
+            future_input_size (int): The number of known future time covariates to supply.
             hidden_size (int, optional): Hidden neurons to be used in model. Defaults to 32.
             num_layers (int, optional): Number of hidden layers for LSTM model. Defaults to 1.
             dropout (float, optional): Dropout for LSTM model. Defaults to 0.2.
+            forecast_len (int, optional): The number of timesteps to forecast into the future. Defaults to 4
         """
         super(WeatherLSTM, self).__init__()
         self.hidden_size = hidden_size

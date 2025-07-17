@@ -33,6 +33,17 @@ class AirQualityFitHelper:
         future_input_size: int = 6,
         device: str = "cpu",
     ) -> None:
+        """
+        Initialize the Helper fit class
+
+        Args:
+            train_loader (DataLoader): The Pytorch training data loader
+            val_loader (DataLoader): The PyTorch validation data loader
+            test_loader (DataLoader): The PyTorch test data loader
+            past_input_size (int, optional): The size of known past covariates. Defaults to 9.
+            future_input_size (int, optional): The size of known future-time covariates. Defaults to 6.
+            device (str, optional): Device type for. Defaults to "cpu".
+        """
         self.train_loader = train_loader
         self.val_loader = val_loader
         self.test_loader = test_loader
@@ -259,6 +270,7 @@ class AirQualityFitHelper:
             test_df (DataFrame): The test data to perform predictions on. No target should be present
             time_index (pd.Index): The timestamps for the test data
             window_size (int): The size of the sliding window. This should match the window size of the data loader
+            forecast_len(int, optional): The nu,ber of timesteps to forecast into the future. Defaults to 4
 
         Returns:
             Series: Predicted air quality values with associated timestamps as index
