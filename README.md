@@ -75,3 +75,11 @@ that I was getting an RMSE between 3-4 for the final model fits. An example
 figure below shows the predicted vs actual air quality of a final model fits
 
 ![example curve](./figures/actual_predictions_overlay.png)
+
+
+### Model Changes
+Since last including the example curve above, there was a large change in the model, where I am now forecasting air quality
+for the next 4 hours, not just the next timepoint. As a result, this changes the example curve above making it more messy. Regardless,
+this is a change I thought to be necessary, as in the worl of time-series forecasting we are not predicting the next timestamp alone.
+I'm hoping to eventually update the graphic to show the result, however just know that we are now forecasting the next 4 hours of data
+with this model. I have made the necessary changes both here, and within the API itself.
