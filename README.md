@@ -5,6 +5,21 @@ and hyperparameter tuning of the Air Quality model.
 
 A visual flow diagram will be coming soon
 
+### Running the Code
+Since this project makes us of the `uv` package manager for python, you will need to ensure that you install that onto your system.
+You can get the installation information [here](https://docs.astral.sh/uv/getting-started/installation/). Once that is installed, you
+can run `uv sync` and it will handle installing the necessary packages for this project. Then, simple run 
+
+```bash
+uv run main.py
+```
+
+To run the model.
+
+### Important Caveats
+Now, an important piece for this project is that it assumes you have the air quality data already populated in some external database, and you have the appropriate
+connection string set up. Please make sure that this is configured in some sort of environment variable before running, otherwise there will be no data to use
+
 ### Model Choice
 I chose an LSTM model for this project as they are able to perform well for
 small datasets. Given that we have hourly data from January 1, 2023 to present
