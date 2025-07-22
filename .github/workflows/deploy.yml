@@ -27,3 +27,23 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:latest -f Dockerfile.model .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - name: Write service account key to file safely
+        run: |
+          echo '${{ toJson(fromJson(secrets.GCLOUD_SERVICE_KEY)) }}' > /tmp/gcloud-key.json
+  
+      - name: Activate service account
+        run: |
+          gcloud auth activate-service-account --key-file=/tmp/gcloud-key.json
+          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+  
+      - name: SSH and deploy on GCE instance
+        run: |
+          gcloud compute ssh ${{ secrets.GCP_VM_USERNAME }}@${{ secrets.GCP_VM_NAME }} \
+            --zone=${{ secrets.GCP_COMPUTE_ZONE }} \
+            --quiet \
+            --command="sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:latest"
