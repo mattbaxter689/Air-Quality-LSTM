@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import numpy as np
 from sklearn import set_config
 from src.utils.db_utils import DatabaseConnection
-from src.utils.utils import time_series_split
+from src.utils.utils import time_series_split, warm_cold_start
 from src.transformers.time_transformer import AirQualityProcessor
 from src.datasets.weather_dataset import WeatherDataset
 from torch.utils.data import DataLoader
@@ -20,24 +20,9 @@ logger = create_logger(name="torch_weather")
 
 
 def main():
-    with DatabaseConnection() as conn:
-        df = pd.read_sql(
-            """
-            SELECT *
-            FROM air_quality
-            """,
-            con=conn,
-        )
+    START_TYPE = os.getenv("START_TYPE")
+    df = warm_cold_start(start_type=START_TYPE)
 
-    # take the log of the aqi, since it is heavily skewed
-    # also drop the CO2 and CH$ columns since they are 75% missing for now
-    df["log_aqi"] = np.log1p(df["us_aqi"])
-    df = (
-        df.drop(columns=["us_aqi", "insert_time", "carbon_dioxide", "methane"])
-        .sort_values(by="_time", ascending=True)
-        .set_index("_time")
-    )
-    df["_time"] = df.index
     # -------- TRAIN-TEST SPLIT ------------
     train, val, test = time_series_split(df=df)
 
@@ -96,6 +81,10 @@ def main():
             fit_helper=trainer, ml_logger=ml_logger
         )
         study = optuna.create_study(direction="minimize")
+        if START_TYPE == "warm_start":
+            params = ml_logger.load_recent_params()
+            study.enqueue_trial(params=params)
+
         study.optimize(objective_func, n_trials=10)
 
         logger.info("Best trial:")

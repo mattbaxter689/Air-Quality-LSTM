@@ -1,6 +1,6 @@
 import mlflow
 import mlflow.pytorch
-import mlflow.sklearn
+from mlflow.tracking import MlflowClient
 import matplotlib.pyplot as plt
 import os
 import uuid
@@ -180,3 +180,33 @@ class MLFlowLogger:
         mlflow.log_artifact(filename)
         plt.close(fig)
         os.remove(filename)
+
+    def load_recent_params(self) -> dict[str, int | float]:
+        """
+        In case of warm-start, load latest model parameters for further tuning
+
+        Returns:
+            dict[str, int | float]: The parameters loaded from latest run
+        """
+
+        logger.info("loading Model params for warm-start")
+        mlflow.set_experiment(self.final_run_name)
+        experiment = mlflow.get_experiment_by_name(self.final_run_name)
+
+        client = MlflowClient()
+        runs = client.search_runs(
+            experiment_ids=[experiment.experiment_id],
+            order_by=["start_time DESC"],
+            max_results=1,
+        )
+        latest_run = runs[0].data.params
+
+        # set experiment back to original
+        mlflow.set_experiment(self.experiment_name)
+
+        return {
+            "hidden_size": int(latest_run["hidden_size"]),
+            "num_layers": int(latest_run["num_layers"]),
+            "dropout": float(latest_run["dropout"]),
+            "lr": float(latest_run["lr"]),
+        }
