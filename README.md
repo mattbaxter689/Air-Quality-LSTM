@@ -50,6 +50,12 @@ small datasets. This can be verified from my initial results, as I was getting
 surprising performance given my available data. Additionally, to achieve the
 best possible model we can, I incorporated hyperparameter tuning into the model.
 
+This model is split into a seq2seq Encoder-Decoder setup. I initially had it setup as a 
+single LSTM class that handled the encoder-decoder style. However, I wanted to update this
+to something that would be more common, especially for time-series forecasting. Doing so provides
+far greater conrtol over the individual encoder-decoder classes if I wanted to add additional pieces
+like Attention, etc. 
+
 #### Optuna
 While hyperaparameter tuning techniques like grid-search or randomzied-search
 can work well, they require the user to define the values to be considered in
