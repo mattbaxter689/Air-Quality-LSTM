@@ -100,7 +100,6 @@ def main():
             train_target=train_target,
             val_target=val_target,
             best_params=best_params,
-            num_epochs=20,
         )
         rmse, mae = trainer.test_model(model=final_model)
         ml_logger.log_final_model(

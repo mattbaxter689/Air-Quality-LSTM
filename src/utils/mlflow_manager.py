@@ -128,9 +128,9 @@ class MLFlowLogger:
             mlflow.set_tag("status", "Production")
 
             if processor is not None:
-                self.log_pipeline(processor=processor)
+                self._log_pipeline(processor=processor)
 
-    def log_pipeline(
+    def _log_pipeline(
         self,
         processor: AirQualityProcessor,
         artifact_path: str = "preprocessing_pipeline",
