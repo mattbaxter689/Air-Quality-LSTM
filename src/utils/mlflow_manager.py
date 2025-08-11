@@ -6,7 +6,7 @@ import os
 import uuid
 from typing import Self
 from src.model_class.weather_model import WeatherLSTM
-from src.transformers.time_transformer import AirQualityProcessor
+from src.transformers.time_transformer import WeatherProcessor
 import joblib
 import logging
 
@@ -92,7 +92,7 @@ class MLFlowLogger:
         train_loss: list[float],
         test_rmse: float,
         test_mae: float,
-        processor: AirQualityProcessor | None,
+        processor: WeatherProcessor | None,
     ) -> None:
         """
         Log the final model using the best parameters. Also log the data processor
@@ -104,7 +104,7 @@ class MLFlowLogger:
             train_loss (list[float]): The final training loss
             test_rmse (float): The RMSE on the test set
             test_mae (float): The MAE on the test set
-            processor (AirQualityProcessor | None): The air quality data processor
+            processor (WeatherProcessor | None): The air quality data processor
         """
         logger.info("Logging final model fit and parameters")
         mlflow.set_experiment(self.final_run_name)
@@ -132,14 +132,14 @@ class MLFlowLogger:
 
     def _log_pipeline(
         self,
-        processor: AirQualityProcessor,
+        processor: WeatherProcessor,
         artifact_path: str = "preprocessing_pipeline",
     ):
         """
         Log the data processing pipeline
 
         Args:
-            processor (AirQualityProcessor): The processor to access pipeline from
+            processor (WeatherProcessor): The processor to access pipeline from
             artifact_path (str, optional): The place to store the processor temporariliy. Defaults to "preprocessing_pipeline".
 
         Raises:

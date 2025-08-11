@@ -3,11 +3,9 @@ import optuna
 from dotenv import load_dotenv
 import numpy as np
 from sklearn import set_config
-from src.utils.db_utils import DatabaseConnection
 from src.utils.utils import time_series_split, warm_cold_start
-from src.transformers.time_transformer import AirQualityProcessor
-from src.datasets.weather_dataset import WeatherDataset
-from torch.utils.data import DataLoader
+from src.transformers.time_transformer import WeatherProcessor
+from src.datasets.weather_dataset import create_dataloaders
 import matplotlib.pyplot as plt
 from src.model_class.model_tuning import AirQualityFitHelper, create_objective
 from src.utils.mlflow_manager import MLFlowLogger
@@ -27,6 +25,7 @@ def main():
     train, val, test = time_series_split(df=df)
 
     # -------- TRANSFORMER SETUP -----------
+    # Put into a helper function
     target_col = "log_aqi"
     time_col = "_time"
     train_target = train[target_col]
@@ -40,38 +39,28 @@ def main():
     # extract columns from data that are numeric
     num_cols = [col for col in train.columns if col != time_col]
 
-    processor = AirQualityProcessor(num_cols=num_cols, time_col=time_col)
+    processor = WeatherProcessor(num_cols=num_cols, time_col=time_col)
 
     # Apply the pipeline. Fit and transform train, trainsform others
     train_transformed = processor.fit_transform(train)
     val_transformed = processor.transform(val)
     test_transformed = processor.transform(test)
 
-    # -------- PYTORCH DATASETS ------------
-    train_dataset = WeatherDataset(
-        weather=train_transformed, target=train_target, window_size=12
-    )
-    val_dataset = WeatherDataset(
-        weather=val_transformed, target=val_target, window_size=12
-    )
-    test_dataset = WeatherDataset(
-        weather=test_transformed, target=test_target, window_size=12
+    # -------- PYTORCH DATASETS AND LOADERS ------------
+    loaders = create_dataloaders(
+        train_tf=train_transformed,
+        val_tf=val_transformed,
+        test_tf=test_transformed,
+        train_target=train_target,
+        val_target=val_target,
+        test_target=test_target,
     )
 
-    train_loader = DataLoader(
-        dataset=train_dataset, batch_size=32, shuffle=False, drop_last=True
-    )
-    val_loader = DataLoader(
-        dataset=val_dataset, batch_size=32, shuffle=False, drop_last=False
-    )
-    test_loader = DataLoader(
-        dataset=test_dataset, batch_size=32, shuffle=False, drop_last=False
-    )
     # -------- MODEL TRAINING ------------
     trainer = AirQualityFitHelper(
-        train_loader=train_loader,
-        val_loader=val_loader,
-        test_loader=test_loader,
+        train_loader=loaders.train_loader,
+        val_loader=loaders.val_loader,
+        test_loader=loaders.test_loader,
     )
 
     with MLFlowLogger(

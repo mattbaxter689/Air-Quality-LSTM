@@ -59,7 +59,7 @@ class AddCyclicalTime(BaseEstimator, TransformerMixin):
         ]
 
 
-class AirQualityProcessor(BaseEstimator, TransformerMixin):
+class WeatherProcessor(BaseEstimator, TransformerMixin):
     """
     Helper class to create the sklearn pipeline, and use the associated methods to fit and transform the data
 
