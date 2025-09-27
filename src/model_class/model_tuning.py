@@ -108,6 +108,17 @@ class AirQualityFitHelper:
         config: TrainingConfig,
         use_scheduler: bool = True,
     ) -> tuple[optim.Optimizer, optim.lr_scheduler.ReduceLROnPlateau | None]:
+        """
+        Helper to create the optimizer and scheduler if needed
+
+        Args:
+            model (WeatherLSTM): The weather model parameters to create the optimizer
+            config (TrainingConfig): Training configuration variables
+            use_scheduler (bool): Boolean determining if scheduler should be used or not
+
+        Returns:
+            tuple(optim.Optimizer, optim.lr_scheduler.ReduceLROnPlateau | None): Tuple containing the optimizer and scheduler if scheduler needed
+        """
         optimizer = optim.Adam(
             model.parameters(), lr=config.lr, weight_decay=config.weight_decay
         )
@@ -280,6 +291,18 @@ class AirQualityFitHelper:
     def _get_predictions_and_targets(
         self, model: WeatherLSTM, data_loader: DataLoader
     ) -> tuple[np.ndarray, np.ndarray]:
+        """
+        Helper to generate predicted values and associate with target value for
+        model scoring
+
+        Args:
+            model (WeatherLSTM): Model to be used to generate predictions
+            data_loader (DataLoader): The torch data loader to use
+
+        Returns:
+            tuple(np.ndarray, np.ndarray): Tuple of numpy arrays containing the predicted and target values
+        """
+        
         preds, targets = [], []
         model.eval()
 
@@ -387,7 +410,7 @@ class AirQualityFitHelper:
             num_epochs (int, optional): The number of epochs to train for. Defaults to 20.
 
         Returns:
-            WeatherLSTM: The final LSTM model fit
+            tuple(WeatherLSTM, list[float]): The final LSTM model fit with the associated losses
         """
 
         if config is None:
@@ -431,6 +454,15 @@ class AirQualityFitHelper:
         window_size: int,
         forecast_len: int,
     ) -> None:
+        """
+        Helper function to ensure that prediction inputs are the proper length
+
+        Args:
+            test_df (DataFrame): The dataframe to validate inputs for
+            time_index (pd.Index): The time index to validate length of input data
+            window_size (int): The lookback window that was used during model fit to predict the next timestamp(s)
+            forecast_len (int): Specifies how many timesteps to forecast for
+        """
         if len(test_df) < window_size + forecast_len:
             raise ValueError(
                 f"Test data length ({len(test_df)}) must be >= "
