@@ -609,6 +609,6 @@ def create_objective(
             val_loss=result.val_losses,
         )
 
-        return result.val_losses[-1]
+        return result.best_val_loss
 
     return objective
